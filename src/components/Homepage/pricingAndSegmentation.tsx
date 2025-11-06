@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 export default function SegmentsAndPricing() {
     const [activeSegment, setActiveSegment] = useState(0);
     const [billingCycle, setBillingCycle] = useState('monthly');
+const [hoveredFeature, setHoveredFeature] = useState(null);
 
     const segments = [
         {
@@ -23,14 +24,42 @@ export default function SegmentsAndPricing() {
             budget: "Less than AED 6,000/yr",
             compliance: "Low",
             price: { monthly: "300", annual: "3,000" },
-            features: [
-                "Basic financial statements",
-                "Monthly reconciliation",
-                "Tax registration support",
-                "Up to 20 transactions/month",
-                "Quarterly financial reviews",
-                "Email support"
-            ]
+              features: [
+  {
+    name: "Business Setup",
+    description: "Free Zone & Mainland in Dubai, Sharjah, Ajman, RAK, UAQ, Fujairah & Abu Dhabi."
+  },
+  {
+    name: "Finding Virtual, Rented & Owned Office",
+    description: "Corporate Tax & VAT Registration & Filing"
+  },
+  {
+    name: "Book Keeping",
+    description: "200 Annual Transactions of Sales, Purchase, Receipts, Payments & other business transactions. For additional transactions a charge of AED 5 per transaction."
+  },
+  {
+    name: "Bank Account Opening Assistance",
+    description: "Corporate Tax & VAT Registration & Filing"
+  },
+   {
+    name: "Payroll",
+    description: "Details of up to 2 employees with personal, educational, skills & knowledge, salaries, benefits & attendance with monthly salary processing. For additional employees, a charge of AED 100 per year."
+  },
+  {
+    name: "Collecting & Storing Digital Documents & Transaction Records",
+    description: "Corporate Tax & VAT Registration & Filing"
+  },
+ 
+  {
+    name: "Corporate Tax & VAT Registration & Filing",
+    description: "Corporate Tax & VAT Registration & Filing"
+  },
+  {
+    name: "Providing Accounting Software Tally on Cloud",
+    description: "Corporate Tax & VAT Registration & Filing"
+  }
+]
+
         },
         {
             type: "SME",
@@ -88,7 +117,7 @@ export default function SegmentsAndPricing() {
 
     return (
         <section id="segments" className="py-8 bg-white">
-            <div className="max-w-7xl mx-auto px-6">
+            <div className="max-w-full mx-auto px-6">
                 {/* Section Header */}
                 <div className="text-center mb-12">
                     <h2 className="text-4xl font-bold mb-4 text-gray-900">
@@ -226,36 +255,65 @@ export default function SegmentsAndPricing() {
                   ))}
                 </div>
               </div> */}
-                                <div>
-                                    <h4 className="font-semibold text-gray-900 mb-4">What's included:</h4>
-                                    <div className="space-y-3">
-                                        {/* Split features into pairs */}
-                                        {currentSegment.features.reduce((rows: any[], feature, idx) => {
-                                            if (idx % 2 === 0) rows.push([feature, currentSegment.features[idx + 1]]);
-                                            return rows;
-                                        }, []).map((pair, rowIdx) => (
-                                            <div key={rowIdx} className="flex justify-between">
-                                                {/* Left-aligned feature */}
-                                                <div className="flex items-start gap-2">
-                                                    <div className={`w-5 h-5 rounded-full bg-gradient-to-r ${currentSegment.color} flex items-center justify-center flex-shrink-0 mt-0.5`}>
-                                                        <Check className="h-3 w-3 text-white" />
-                                                    </div>
-                                                    <span className="text-sm text-gray-700">{pair[0]}</span>
-                                                </div>
+                            <div>
+  <h4 className="font-semibold text-gray-900 mb-4">What's included:</h4>
+  <div className="space-y-3">
+    {currentSegment.features.reduce((rows: any[], feature, idx) => {
+      if (idx % 2 === 0) rows.push([feature, currentSegment.features[idx + 1]]);
+      return rows;
+    }, []).map((pair, rowIdx) => (
+      <div key={rowIdx} className="flex justify-between">
+        {/* Left feature */}
+        <div 
+          className="flex items-start gap-2 relative group flex-1 pr-2"
+          onMouseEnter={() => setHoveredFeature(pair[0].name || pair[0])}
+          onMouseLeave={() => setHoveredFeature(null)}
+        >
+          <div className={`w-5 h-5 rounded-full bg-gradient-to-r ${currentSegment.color} flex items-center justify-center flex-shrink-0 mt-0.5`}>
+            <Check className="h-3 w-3 text-white" />
+          </div>
+          <span className="text-sm text-gray-700 cursor-help">
+            {pair[0].name || pair[0]}
+          </span>
+          
+          {/* Tooltip */}
+          {hoveredFeature === (pair[0].name || pair[0]) && (
+            <div className="absolute bottom-full left-0 mb-2 w-64 p-3 bg-gray-900 text-white text-xs rounded-lg shadow-lg z-10">
+              <p className="font-semibold mb-1">{pair[0].name || pair[0]}</p>
+              <p>{pair[0].description || `Detailed information about ${pair[0].toLowerCase()}`}</p>
+              <div className="absolute top-full left-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-900"></div>
+            </div>
+          )}
+        </div>
 
-                                                {/* Right-aligned feature (only if exists) */}
-                                                {pair[1] && (
-                                                    <div className="flex items-start gap-2">
-                                                        <div className={`w-5 h-5 rounded-full bg-gradient-to-r ${currentSegment.color} flex items-center justify-center flex-shrink-0 mt-0.5`}>
-                                                            <Check className="h-3 w-3 text-white" />
-                                                        </div>
-                                                        <span className="text-sm text-gray-700">{pair[1]}</span>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
+        {/* Right feature */}
+        {pair[1] && (
+          <div 
+            className="flex items-start gap-2 relative group flex-1 pl-2"
+            onMouseEnter={() => setHoveredFeature(pair[1].name || pair[1])}
+            onMouseLeave={() => setHoveredFeature(null)}
+          >
+            <div className={`w-5 h-5 rounded-full bg-gradient-to-r ${currentSegment.color} flex items-center justify-center flex-shrink-0 mt-0.5`}>
+              <Check className="h-3 w-3 text-white" />
+            </div>
+            <span className="text-sm text-gray-700 cursor-help">
+              {pair[1].name || pair[1]}
+            </span>
+            
+            {/* Tooltip */}
+            {hoveredFeature === (pair[1].name || pair[1]) && (
+              <div className="absolute bottom-full right-0 mb-2 w-64 p-3 bg-gray-900 text-white text-xs rounded-lg shadow-lg z-10">
+                <p className="font-semibold mb-1">{pair[1].name || pair[1]}</p>
+                <p>{pair[1].description || `Detailed information about ${pair[1].toLowerCase()}`}</p>
+                <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-900"></div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
+</div>
 
                             </div>
                         </div>
