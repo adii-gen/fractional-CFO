@@ -176,7 +176,7 @@ export default function FractionalCFOPage() {
 
       </nav>
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-emerald-700 to-emerald-900 text-white">
+      {/* <section className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-emerald-700 to-emerald-900 text-white">
         <div className="max-w-6xl mx-auto px-6 py-32 text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
             Empowering Businesses with Strategic Financial Leadership
@@ -194,8 +194,44 @@ export default function FractionalCFOPage() {
           </Button>
         </div>
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
-      </section>
+      </section> */}
+{/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
+        <div className="max-w-7xl mx-auto px-6 py-16 md:py-24">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Left side - Illustration */}
+            <div className="relative order-2 md:order-1 rounded-3xl">
+             <img src="/image.png" alt="" width={500} />
+            </div>
 
+            {/* Right side - Content */}
+            <div className="order-1 md:order-2">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-gray-900">
+                Strategic Leadership. <br />
+                <span className="text-gray-900">Fractional Commitment.</span>
+              </h1>
+              <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-xl">
+                Get access to world-class CXO talent — without full-time overhead.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Button
+                  size="lg"
+                  className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-8"
+                >
+                  Book a Consultation
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 font-semibold px-8"
+                >
+                  Learn More
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       {/* Services Section */}
       <section className="py-24 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6 text-center">
