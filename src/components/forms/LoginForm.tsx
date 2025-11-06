@@ -79,14 +79,14 @@ function LoginForm({ api }: any) {
                 {/* <TicketIcon className="h-5 w-5 text-white" /> */}
                 <img src="/icons.png" alt="" className="h-10 w-10" />
               </div>
-              <span className="ml-2 text-2xl  font-bold text-primary">Tms</span>
+              <span className="ml-2 text-2xl  font-bold text-primary">Fractional CFO</span>
             </div>
           </div>
         </Link>
         <div className="md:hidden pl-4 flex"> 
           {/* <TicketIcon size={50} className="text-primary pb-1 font-bold bold " /> */}
           <img src="/icons.png" className="w-10 h-10" alt="" />
-          <span className="text-4xl font-bold pl-0 text-primary"> TMS</span></div>
+          <span className="text-4xl font-bold pl-0 text-primary"> Fractional CFO</span></div>
         {/* Title - Different for mobile and desktop */}
         <h1 className="text-2xl font-bold text-primary mb-2 md:mb-6 text-left md:text-center px-6 md:px-0 md:pt-0">
           <span className="md:hidden">Let's Sign you in.</span>

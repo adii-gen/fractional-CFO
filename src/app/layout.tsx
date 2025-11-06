@@ -9,7 +9,7 @@ import { Poppins } from "next/font/google";
 export const metadata: Metadata = {
 
 
-  title: "TMS",
+  title: "Fractional CFO",
   description: "We're here to Increase your Productivity",
   generator: "next.js",
   manifest: "/manifest.json",

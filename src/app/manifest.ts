@@ -2,8 +2,8 @@ import type { MetadataRoute } from 'next'
  
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'TMS',
-    short_name: 'TMS',
+    name: 'Fractional CFO',
+    short_name: 'Fractional CFO',
     description: 'A Progressive Web App built with Next.js',
     start_url: '/dashboard',
     display: 'standalone',

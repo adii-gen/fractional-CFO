@@ -121,7 +121,7 @@ export default function NavBarWithoutDasboard() {
                 <Image src="/icons.png" height={40} width={40} alt="Logo" />
                 {/* <TicketIcon height={40} width={40} className="text-blue-600" /> */}
                 <h1 className="text-blue-900 text-3xl font-bold">
-                  TMS
+                  Fractional CFO
                 </h1>
               </div>
             </Link>
@@ -236,7 +236,7 @@ export default function NavBarWithoutDasboard() {
                   <div className=" flex space-x-1 items-center">
                     {/* <Image src="/logo.jpg" height={40} width={40} alt="Logo" /> */}
                     <span className="font-medium text-lg text-black">
-                      TMS
+                      Fractional CFO
                     </span>
                   </div>
                   <button

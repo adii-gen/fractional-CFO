@@ -220,7 +220,7 @@ const Dashboard = () => {
             <div className="flex items-center">
               <img src="/icons.png" className='w-6 h-6 sm:w-8 sm:h-8 text-blue-600 mr-2 sm:mr-3' alt="" />
               {/* <Ticket className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600 mr-2 sm:mr-3" /> */}
-              <h1 className="text-lg sm:text-xl font-bold text-primary ">TMS</h1>
+              <h1 className="text-lg sm:text-xl font-bold text-primary ">Fractional CFO</h1>
             </div>
             
             {/* Desktop Navigation */}

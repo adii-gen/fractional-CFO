@@ -89,7 +89,7 @@
 //             <div className="h-10 w-10 rounded-md bg-blue-800 flex items-center justify-center">
 //               <Ticket className="h-5 w-5 text-white" />
 //             </div>
-//             <span className="ml-2 text-2xl font-bold text-primary">Tms</span>
+//             <span className="ml-2 text-2xl font-bold text-primary">Fractional CFO</span>
 //           </div>
 //         </div>
 //         </Link>
@@ -341,14 +341,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ text, role }) => {
             <div className="flex items-center">
                 <img src="/icons.png" alt="" className="h-10 w-10" />
               
-              <span className="ml-2 text-2xl font-bold text-primary">Tms</span>
+              <span className="ml-2 text-2xl font-bold text-primary">Fractional CFO</span>
             </div>
           </div>
         </Link>
 <div className="md:hidden pl-4 flex"> 
   {/* <TicketIcon size={50} className="text-primary pb-1 font-bold bold " /> */}
   <img src="/icons.png" alt="" className="h-10 w-10" />
-  <span className="text-4xl font-bold pl-0 text-primary"> TMS</span></div>
+  <span className="text-4xl font-bold pl-0 text-primary"> Fractional CFO</span></div>
         {/* Title - Different for mobile and desktop */}
         <h1 className="text-2xl font-bold text-primary mb-2 md:mb-6 text-left md:text-center px-6 md:px-0">
           <span className="md:hidden">Let's Create account.</span>
@@ -357,7 +357,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ text, role }) => {
 
         {/* Mobile subtitles */}
         <div className="md:hidden px-6 mb-8">
-          <p className="text-primary text-base mb-1">Welcome to TMS</p>
+          <p className="text-primary text-base mb-1">Welcome to Fractional CFO</p>
         
         </div>
 

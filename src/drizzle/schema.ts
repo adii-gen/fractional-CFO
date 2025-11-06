@@ -1,4 +1,3 @@
-import { relations } from "drizzle-orm";
 import {
   boolean,
   date,
@@ -25,9 +24,6 @@ export const UserRole = pgEnum("user_role", [
   "USER",
   "platform_admin"
 ]);
-
-export const TicketStatusEnum = pgEnum('ticket_status', ['open', 'pending', 'resolved', 'closed']);
-export const MessageDirectionEnum = pgEnum('message_direction', ['user_to_admin', 'admin_to_user']);
 
 // =====================
 // Ticket Tables
@@ -103,71 +99,10 @@ export const UserTable = pgTable(
   })
 );
 
-export const Tickets = pgTable('support_tickets', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  userId: uuid('user_id').notNull().references(() => UserTable.id),
-  ticketNumber: varchar('ticket_number', { length: 20 }).unique().notNull(),
-  subject: varchar('subject', { length: 255 }).notNull(),
-  description: text('description').notNull(),
-  attachment: text('image').array(),
-  category: varchar('category', { length: 100 }),
-  priority: varchar('priority', { length: 20 }).default('medium'),
-  status: TicketStatusEnum('status').default('open'),
-  assignedTo: uuid('assigned_to').references(() => UserTable.id),
-  resolutionNotes: text('resolution_notes'),
-  resolvedAt: timestamp('resolved_at'),
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow(),
-}, (table) => ({
-  userIdx: index('ticket_user_idx').on(table.userId),
-  assignedToIdx: index('ticket_assigned_to_idx').on(table.assignedTo),
-  statusIdx: index('ticket_status_idx').on(table.status),
-}));
 
-export const TicketMessages = pgTable('ticket_messages', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  ticketId: uuid('ticket_id').notNull().references(() => Tickets.id),
-  senderId: uuid('sender_id').notNull().references(() => UserTable.id),
-  direction: MessageDirectionEnum('direction').notNull(), // Who sent the message
-  message: text('message').notNull(),
-  attachments: jsonb('attachments'), // Array of attachment URLs
-  isRead: boolean('is_read').default(false),
-  createdAt: timestamp('created_at').defaultNow(),
-}, (table) => ({
-  ticketIdx: index('message_ticket_idx').on(table.ticketId),
-  senderIdx: index('message_sender_idx').on(table.senderId),
-}));
 
-// =====================
-// Relations
-// =====================
 
-export const TicketRelations = relations(Tickets, ({ one, many }) => ({
-  user: one(UserTable, {
-    fields: [Tickets.userId],
-    references: [UserTable.id],
-  }),
-  assignedAdmin: one(UserTable, {
-    fields: [Tickets.assignedTo],
-    references: [UserTable.id],
-    relationName: 'assigned_admin'
-  }),
-  messages: many(TicketMessages),
-}));
 
-export const TicketMessageRelations = relations(TicketMessages, ({ one }) => ({
-  ticket: one(Tickets, {
-    fields: [TicketMessages.ticketId],
-    references: [Tickets.id],
-  }),
-  sender: one(UserTable, {
-    fields: [TicketMessages.senderId],
-    references: [UserTable.id],
-  }),
-}));
 
-export const UserRelations = relations(UserTable, ({ many }) => ({
-  createdTickets: many(Tickets, { relationName: 'user_tickets' }),
-  assignedTickets: many(Tickets, { relationName: 'assigned_admin' }),
-  sentMessages: many(TicketMessages),
-}));
+
+

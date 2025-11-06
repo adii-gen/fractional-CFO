@@ -85,7 +85,7 @@ export async function sendEmailVerificationEmail(email: string, token: string) {
           <body>
             <div class="container">
               <div class="header">
-                <div class="logo">Tms</div>
+                <div class="logo">FRACTIONAL CFO</div>
               </div>
               <div class="content">
                 <h2>Account Activation</h2>
@@ -99,7 +99,7 @@ export async function sendEmailVerificationEmail(email: string, token: string) {
                 <p>Best regards,<br>The Gennext It Team</p>
               </div>
               <div class="footer">
-                <p>&copy; 2025 TMS. All rights reserved.</p>
+                <p>&copy; 2025 Fractional CFO. All rights reserved.</p>
               </div>
             </div>
           </body>
