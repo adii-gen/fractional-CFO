@@ -13,10 +13,10 @@ import ClientSegmentation from "./Homepage/ClientSegmentation";
 import SegmentsAndPricing from "./Homepage/pricingAndSegmentation";
 
 export default function FractionalCFOPage() {
-   const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <main className="min-h-screen bg-white text-gray-800">
-       <nav className="bg-white shadow-sm sticky top-0 z-50">
+      <nav className="bg-white shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             {/* Logo */}
@@ -48,20 +48,20 @@ export default function FractionalCFOPage() {
 
             {/* Desktop Auth Buttons */}
             <div className="hidden md:flex items-center space-x-4">
-               <Link href="/auth/login">
-              <Button
-                variant="outline"
-                className="border-green-700 text-green-700 hover:bg-green-700 hover:text-white text-sm"
-              >
-                Sign In
-              </Button>
+              <Link href="/auth/login">
+                <Button
+                  variant="outline"
+                  className="border-green-700 text-green-700 hover:bg-green-700 hover:text-white text-sm"
+                >
+                  Sign In
+                </Button>
               </Link>
               <Link href="/auth/register">
                 <Button className="bg-green-800 hover:bg-green-900 text-white text-sm">
-                   Get Started
-                 </Button>
-               </Link>
-              </div>
+                  Get Started
+                </Button>
+              </Link>
+            </div>
 
             {/* Mobile menu button */}
             <div className="md:hidden flex items-center">
@@ -135,44 +135,44 @@ export default function FractionalCFOPage() {
           </div>
         )} */}
         {isOpen && (
-  <div className="md:hidden bg-white pb-3 px-4 z-50 absolute top-16 left-0 w-full shadow-lg">
-    <div className="flex flex-col space-y-2 pt-2">
-      {/* Links */}
-      {['features', 'pricing', 'demo', 'contact'].map(section => (
-        <a
-          key={section}
-          href={`#${section}`}
-          className="text-gray-600 hover:text-green-700 px-3 py-2 rounded-md text-base font-medium"
-          onClick={() => setIsOpen(false)}
-        >
-          {section.charAt(0).toUpperCase() + section.slice(1)}
-        </a>
-      ))}
+          <div className="md:hidden bg-white pb-3 px-4 z-50 absolute top-16 left-0 w-full shadow-lg">
+            <div className="flex flex-col space-y-2 pt-2">
+              {/* Links */}
+              {['features', 'pricing', 'demo', 'contact'].map(section => (
+                <a
+                  key={section}
+                  href={`#${section}`}
+                  className="text-gray-600 hover:text-green-700 px-3 py-2 rounded-md text-base font-medium"
+                  onClick={() => setIsOpen(false)}
+                >
+                  {section.charAt(0).toUpperCase() + section.slice(1)}
+                </a>
+              ))}
 
-      {/* Auth Buttons */}
-      <div className="pt-2 border-t border-gray-200">
-        <Link href="/auth/login">
-          <Button
-            variant="outline"
-            className="w-full border-green-700 text-green-700 hover:bg-green-700 hover:text-white mb-2"
-            onClick={() => setIsOpen(false)}
-          >
-            Sign In
-          </Button>
-        </Link>
+              {/* Auth Buttons */}
+              <div className="pt-2 border-t border-gray-200">
+                <Link href="/auth/login">
+                  <Button
+                    variant="outline"
+                    className="w-full border-green-700 text-green-700 hover:bg-green-700 hover:text-white mb-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Sign In
+                  </Button>
+                </Link>
 
-        <Link href="/auth/login">
-          <Button
-            className="w-full bg-green-700 hover:bg-green-800 text-white"
-            onClick={() => setIsOpen(false)}
-          >
-            Start Free Trial
-          </Button>
-        </Link>
-      </div>
-    </div>
-  </div>
-)}
+                <Link href="/auth/login">
+                  <Button
+                    className="w-full bg-green-700 hover:bg-green-800 text-white"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Start Free Trial
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
 
       </nav>
       {/* Hero Section */}
@@ -195,13 +195,13 @@ export default function FractionalCFOPage() {
         </div>
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
       </section> */}
-{/* Hero Section */}
+      {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
         <div className="max-w-7xl mx-auto px-6 py-16 md:py-24">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Left side - Illustration */}
             <div className="relative order-2 md:order-1 rounded-3xl">
-             <img src="/image.png" alt="" width={500} />
+              <img src="/image.png" alt="" width={500} />
             </div>
 
             {/* Right side - Content */}
@@ -233,7 +233,7 @@ export default function FractionalCFOPage() {
         </div>
       </section>
       {/* Services Section */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-8 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h2 className="text-4xl font-semibold mb-4 text-gray-900">Our Expertise</h2>
           <p className="text-gray-600 mb-12 max-w-3xl mx-auto">
@@ -261,18 +261,18 @@ export default function FractionalCFOPage() {
       </section>
 
       {/* About Section */}
-      <section className="py-24 bg-white border-t border-gray-100">
+      <section className="py-8 bg-white border-t border-gray-100">
         <div className="max-w-5xl mx-auto px-6 text-center">
-          <h2 className="text-4xl font-semibold mb-6 text-gray-900">Why Partner With Us?</h2>
+          <h2 className="text-4xl font-semibold mb-4 text-gray-900">Why Partner With Us?</h2>
           <p className="text-gray-600 max-w-3xl mx-auto mb-10">
             Our team of experienced CFOs brings over a decade of expertise in financial modeling,
             performance optimization, and investor communications — helping you scale confidently and sustainably.
           </p>
-      
+
         </div>
       </section>
 
-  {/* <MarketingStrategy /> */}
+      {/* <MarketingStrategy /> */}
       {/* Testimonials Section */}
       {/* <section className="py-24 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6 text-center">
@@ -309,9 +309,9 @@ export default function FractionalCFOPage() {
           </div>
         </div>
       </section> */}
-<Testimonials />
+      <Testimonials />
       {/* CTA Section */}
-      <section className="py-8 bg-emerald-700 text-center text-white">
+      {/* <section className="py-8 bg-emerald-700 text-center text-white">
         <div className="max-w-4xl mx-auto px-6">
           <h2 className="text-4xl font-bold mb-6 leading-tight">
             Ready to Unlock Financial Clarity?
@@ -326,12 +326,12 @@ export default function FractionalCFOPage() {
             Get Started Today
           </Button>
         </div>
-      </section>
+      </section> */}
       {/* <ClientSegmentation />
 <div><PricingSection />
 </div>  */}
-<SegmentsAndPricing />
-<CTASection />
+      <SegmentsAndPricing />
+      <CTASection />
       {/* Footer */}
       {/* <footer className="py-8 bg-gray-900 text-gray-400 text-center text-sm border-t border-gray-800">
         © {new Date().getFullYear()} Fractional CFO | Financial Strategy. Growth. Success.
