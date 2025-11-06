@@ -106,8 +106,6 @@ export const UserTable = pgTable(
 
 
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
 // import { InferModel } from "drizzle-orm";
 // import {

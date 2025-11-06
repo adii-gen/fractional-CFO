@@ -4,6 +4,13 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, BarChart3, Briefcase, DollarSign, LineChart, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import PricingSection from "./pricing";
+import Testimonials from "./Homepage/Testimonals";
+import CTASection from "./Homepage/contactsec";
+import Footer from "./Homepage/footer";
+import MarketingStrategy from "./Homepage/MarketingStrategy";
+import ClientSegmentation from "./Homepage/ClientSegmentation";
+import SegmentsAndPricing from "./Homepage/pricingAndSegmentation";
 
 export default function FractionalCFOPage() {
    const [isOpen, setIsOpen] = useState(false);
@@ -225,17 +232,13 @@ export default function FractionalCFOPage() {
             Our team of experienced CFOs brings over a decade of expertise in financial modeling,
             performance optimization, and investor communications — helping you scale confidently and sustainably.
           </p>
-          <Button
-            size="lg"
-            className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold transition-all"
-          >
-            Talk to a CFO Expert
-          </Button>
+      
         </div>
       </section>
 
+  {/* <MarketingStrategy /> */}
       {/* Testimonials Section */}
-      <section className="py-24 bg-gray-50">
+      {/* <section className="py-24 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6 text-center">
           <h2 className="text-4xl font-semibold mb-4 text-gray-900">Client Success Stories</h2>
           <p className="text-gray-600 mb-12 max-w-3xl mx-auto">
@@ -269,10 +272,10 @@ export default function FractionalCFOPage() {
             ))}
           </div>
         </div>
-      </section>
-
+      </section> */}
+<Testimonials />
       {/* CTA Section */}
-      <section className="py-24 bg-emerald-700 text-center text-white">
+      <section className="py-8 bg-emerald-700 text-center text-white">
         <div className="max-w-4xl mx-auto px-6">
           <h2 className="text-4xl font-bold mb-6 leading-tight">
             Ready to Unlock Financial Clarity?
@@ -288,11 +291,16 @@ export default function FractionalCFOPage() {
           </Button>
         </div>
       </section>
-
+      {/* <ClientSegmentation />
+<div><PricingSection />
+</div>  */}
+<SegmentsAndPricing />
+<CTASection />
       {/* Footer */}
-      <footer className="py-8 bg-gray-900 text-gray-400 text-center text-sm border-t border-gray-800">
+      {/* <footer className="py-8 bg-gray-900 text-gray-400 text-center text-sm border-t border-gray-800">
         © {new Date().getFullYear()} Fractional CFO | Financial Strategy. Growth. Success.
-      </footer>
+      </footer> */}
+      <Footer />
     </main>
   );
 }
