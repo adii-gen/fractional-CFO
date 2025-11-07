@@ -10,6 +10,8 @@ import Footer from "./Homepage/footer";
 
 import SegmentsAndPricing from "./Homepage/pricingAndSegmentation";
 import FAQSection from "./Homepage/FAQ";
+import TrustedSection from "./Homepage/FinancialTools";
+import TourismChatbot from "./Homepage/chatbot";
 
 export default function FractionalCFOPage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,22 +21,23 @@ export default function FractionalCFOPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             {/* Logo */}
-            <div className="py-4">
-              <div className="flex items-center space-x-1">
-                <span className="tracking-widest text-lg md:text-lg font-medium text-gray-700">
-                  FRACTIONAL
-                </span>
-                <div className="bg-[#CFE4D1] rounded-md px-2 py-1 flex items-center justify-center">
-                  <span className="text-gray-700 text-lg md:text-lg font-semibold">CXO</span>
-                </div>
-              </div>
-
-            </div>
+<div className="py-4">
+  <Link href="/">
+    <div className="flex items-center space-x-1 cursor-pointer">
+      <span className="tracking-widest text-lg md:text-lg font-medium text-gray-700">
+        FRACTIONAL
+      </span>
+      <div className="bg-[#CFE4D1] rounded-md px-2 py-1 flex items-center justify-center">
+        <span className="text-gray-700 text-lg md:text-lg font-semibold">CXO</span>
+      </div>
+    </div>
+  </Link>
+</div>
 
             {/* Desktop Navigation Links */}
             <div className="hidden md:flex items-center space-x-6">
-              <a href="#features" className="text-gray-600 hover:text-green-700 px-3 py-2 text-sm font-medium">
-                Features
+              <a href="#expertise" className="text-gray-600 hover:text-green-700 px-3 py-2 text-sm font-medium">
+                Our Expertise
               </a>
               <a href="#pricing" className="text-gray-600 hover:text-green-700 px-3 py-2 text-sm font-medium">
                 Pricing
@@ -55,7 +58,7 @@ export default function FractionalCFOPage() {
               <Link href="/auth/login">
                 <Button
                   variant="outline"
-                  className="border-green-700 text-green-700 hover:bg-green-700 hover:text-white text-sm"
+                  className="border-green-700 text-green-700 hover:bg-primary hover:text-white text-sm"
                 >
                   Sign In
                 </Button>
@@ -124,27 +127,7 @@ export default function FractionalCFOPage() {
         )}
 
       </nav>
-      {/* Hero Section */}
-      {/* <section className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-emerald-700 to-emerald-900 text-white">
-        <div className="max-w-6xl mx-auto px-6 py-32 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-            Empowering Businesses with Strategic Financial Leadership
-          </h1>
-          <p className="text-lg md:text-xl text-emerald-100 mb-10 max-w-3xl mx-auto">
-            We offer fractional CFO services that help startups and growing companies
-            make smarter financial decisions, manage cash flow, and scale sustainably.
-          </p>
-          <Button
-            size="lg"
-            className="bg-white text-emerald-700 font-semibold hover:bg-emerald-100 transition-all"
-          >
-            Schedule a Free Consultation
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-        </div>
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
-      </section> */}
-      {/* Hero Section */}
+
 
       <section className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
         <div id="logo">
@@ -185,7 +168,10 @@ export default function FractionalCFOPage() {
       </section>
 
       {/* Services Section */}
+      <div id= "expertise" >
       <section className="py-8 bg-gray-50">
+        
+
         <div className="max-w-7xl mx-auto px-6 text-center">
           <h2 className="text-4xl font-semibold mb-4 text-gray-900">Our Expertise</h2>
           <p className="text-gray-600 mb-12 max-w-7xl mx-auto">
@@ -211,8 +197,9 @@ export default function FractionalCFOPage() {
             ))}
           </div>
         </div>
-      </section>
 
+      </section>
+      </div>
       {/* About Section */}
       <section className="py-6 bg-white border-t border-gray-100">
         <div className="max-w-5xl mx-auto px-6 text-center">
@@ -225,73 +212,14 @@ export default function FractionalCFOPage() {
         </div>
       </section>
 
-      {/* <MarketingStrategy /> */}
-      {/* Testimonials Section */}
-      {/* <section className="py-24 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-6 text-center">
-          <h2 className="text-4xl font-semibold mb-4 text-gray-900">Client Success Stories</h2>
-          <p className="text-gray-600 mb-12 max-w-3xl mx-auto">
-            Hear from founders and business owners who’ve experienced the transformation.
-          </p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Riya Sharma",
-                feedback:
-                  "We went from chaos to clarity in under two months. Their team streamlined everything — from budgeting to investor decks.",
-              },
-              {
-                name: "Arjun Patel",
-                feedback:
-                  "They helped us prepare for funding and gave us a complete understanding of our burn rate and profitability.",
-              },
-              {
-                name: "Neha Singh",
-                feedback:
-                  "The insights we now get monthly are priceless. They feel like an in-house finance team — just smarter.",
-              },
-            ].map((t, i) => (
-              <div
-                key={i}
-                className="bg-white p-8 rounded-2xl shadow hover:shadow-lg transition-all"
-              >
-                <p className="italic text-gray-600 mb-4">“{t.feedback}”</p>
-                <h4 className="font-semibold text-emerald-700">{t.name}</h4>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
-      <Testimonials />
-      {/* CTA Section */}
-      {/* <section className="py-8 bg-emerald-700 text-center text-white">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-4xl font-bold mb-6 leading-tight">
-            Ready to Unlock Financial Clarity?
-          </h2>
-          <p className="text-lg text-emerald-100 mb-10">
-            Let’s discuss how we can help you scale smarter and grow sustainably with fractional CFO expertise.
-          </p>
-          <Button
-            size="lg"
-            className="bg-white text-emerald-700 font-semibold hover:bg-gray-100 transition-all"
-          >
-            Get Started Today
-          </Button>
-        </div>
-      </section> */}
-      {/* <ClientSegmentation />
-<div><PricingSection />
-</div>  */}
-      <div id="pricing"><SegmentsAndPricing /></div>
 
+      <div id="pricing"><SegmentsAndPricing /></div>
+      <TrustedSection />
+      <TourismChatbot />
       <CTASection />
       <div id="faqs"><FAQSection /></div>
 
-      {/* Footer */}
-      {/* <footer className="py-8 bg-gray-900 text-gray-400 text-center text-sm border-t border-gray-800">
-        © {new Date().getFullYear()} Fractional CFO | Financial Strategy. Growth. Success.
-      </footer> */}
+
       <Footer />
     </main >
   );
