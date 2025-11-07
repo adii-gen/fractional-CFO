@@ -4,13 +4,12 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, BarChart3, Briefcase, ComputerIcon, DollarSign, LineChart, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import PricingSection from "./pricing";
 import Testimonials from "./Homepage/Testimonals";
 import CTASection from "./Homepage/contactsec";
 import Footer from "./Homepage/footer";
-import MarketingStrategy from "./Homepage/MarketingStrategy";
-import ClientSegmentation from "./Homepage/ClientSegmentation";
+
 import SegmentsAndPricing from "./Homepage/pricingAndSegmentation";
+import FAQSection from "./Homepage/FAQ";
 
 export default function FractionalCFOPage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,14 +19,16 @@ export default function FractionalCFOPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             {/* Logo */}
-            <div className="flex items-center">
-              <div className="flex items-center">
-                <div className="h-8 w-8 md:h-10 md:w-10 rounded-md bg-green-900 flex items-center justify-center">
-                </div>
-                <span className="ml-2 text-lg md:text-xl font-bold text-green-700">
-                  Fractional CFO
+            <div className="py-4">
+              <div className="flex items-center space-x-1">
+                <span className="tracking-widest text-lg md:text-lg font-medium text-gray-700">
+                  FRACTIONAL
                 </span>
+                <div className="bg-[#CFE4D1] rounded-md px-2 py-1 flex items-center justify-center">
+                  <span className="text-gray-700 text-lg md:text-lg font-semibold">CXO</span>
+                </div>
               </div>
+
             </div>
 
             {/* Desktop Navigation Links */}
@@ -43,6 +44,9 @@ export default function FractionalCFOPage() {
               </a>
               <a href="#contact" className="text-gray-600 hover:text-green-700 px-3 py-2 text-sm font-medium">
                 Contact
+              </a>
+              <a href="#faqs" className="text-gray-600 hover:text-green-700 px-3 py-2 text-sm font-medium">
+                FAQs
               </a>
             </div>
 
@@ -141,41 +145,45 @@ export default function FractionalCFOPage() {
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
       </section> */}
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
-        <div className="max-w-7xl mx-auto px-6 py-16 md:py-24">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            {/* Left side - Illustration */}
-            <div className="relative pl-4 order-2 md:order-1 rounded-3xl">
-              <img src="/image.png" alt="" width={500} />
-            </div>
 
-            {/* Right side - Content */}
-            <div className="order-1 md:order-2">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-gray-900">
-                Strategic Leadership at a Fractional Cost <br />
-                
-              </h1>
-              <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-xl">
-                Get access to world-class CFO & CTO with or without experienced team              </p>
-              <div className="flex flex-wrap gap-4">
-                <Button
-                  size="lg"
-                  className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-8"
-                >
-                  Book a Consultation
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 font-semibold px-8"
-                >
-                  Learn More
-                </Button>
+      <section className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
+        <div id="logo">
+          <div className="max-w-7xl mx-auto px-6 py-16 md:py-24">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              {/* Left side - Illustration */}
+              <div className="relative pl-4 order-2 md:order-1 rounded-3xl">
+                <img src="/image.png" alt="" width={500} />
+              </div>
+
+              {/* Right side - Content */}
+              <div className="order-1 md:order-2">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-gray-900">
+                  Strategic Leadership at a Fractional Cost <br />
+
+                </h1>
+                <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-xl">
+                  Get access to world-class CFO & CTO with or without experienced team              </p>
+                <div className="flex flex-wrap gap-4">
+                  <Button
+                    size="lg"
+                    className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-8"
+                  >
+                    Book a Consultation
+                  </Button>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 font-semibold px-8"
+                  >
+                    Learn More
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
       {/* Services Section */}
       <section className="py-8 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6 text-center">
@@ -190,7 +198,7 @@ export default function FractionalCFOPage() {
               { icon: <BarChart3 className="h-10 w-10 text-emerald-600" />, title: "Budgeting & Forecasting", desc: "Plan ahead with detailed cash flow projections and performance insights." },
               { icon: <LineChart className="h-10 w-10 text-emerald-600" />, title: "KPI & Growth Metrics", desc: "Track what truly matters and drive accountability through smart financial metrics." },
               { icon: <Briefcase className="h-10 w-10 text-emerald-600" />, title: "Investor Reporting", desc: "We create polished reports and financial decks that impress investors." },
-               { icon: <ComputerIcon className="h-10 w-10 text-emerald-600" />, title: "IT Solutions", desc: "Standard tools and applications with a facility to customise as per business requirement." },
+              { icon: <ComputerIcon className="h-10 w-10 text-emerald-600" />, title: "IT Solutions", desc: "Standard tools and applications with a facility to customise as per business requirement." },
             ].map((s, i) => (
               <div
                 key={i}
@@ -275,13 +283,16 @@ export default function FractionalCFOPage() {
       {/* <ClientSegmentation />
 <div><PricingSection />
 </div>  */}
-      <SegmentsAndPricing />
+      <div id="pricing"><SegmentsAndPricing /></div>
+
       <CTASection />
+      <div id="faqs"><FAQSection /></div>
+
       {/* Footer */}
       {/* <footer className="py-8 bg-gray-900 text-gray-400 text-center text-sm border-t border-gray-800">
         © {new Date().getFullYear()} Fractional CFO | Financial Strategy. Growth. Success.
       </footer> */}
       <Footer />
-    </main>
+    </main >
   );
 }
