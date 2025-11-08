@@ -39,12 +39,14 @@ export default function FractionalCFOPage() {
                 <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-xl">
                   Get access to world-class CFO & CTO with or without experienced team              </p>
                 <div className="flex flex-wrap gap-4">
+                  <Link href={"/book-consultation"}>
                   <Button
                     size="lg"
                     className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-8"
                   >
                     Book a Consultation
                   </Button>
+                  </Link>
                   <Button
                     size="lg"
                     variant="outline"
