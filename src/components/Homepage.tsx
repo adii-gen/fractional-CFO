@@ -13,122 +13,13 @@ import FAQSection from "./Homepage/FAQ";
 import TrustedSection from "./Homepage/FinancialTools";
 import ConsultingChatbot from "./Homepage/chatbot";
 import ConsultationBookingModal from "./ConsultationBooking";
+import UserNavbar from "./Homepage/usernavbar";
 
 export default function FractionalCFOPage() {
-  const [isOpen, setIsOpen] = useState(false);
   return (
     <main className="min-h-screen bg-white text-gray-800">
-      <nav className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            {/* Logo */}
-            <div className="py-4">
-              <Link href="/">
-                <div className="flex items-center space-x-1 cursor-pointer">
-                  <span className="tracking-widest text-lg md:text-lg font-medium text-gray-700">
-                    FRACTIONAL
-                  </span>
-                  <div className="bg-[#CFE4D1] rounded-md px-2 py-1 flex items-center justify-center">
-                    <span className="text-gray-700 text-lg md:text-lg font-semibold">CXO</span>
-                  </div>
-                </div>
-              </Link>
-            </div>
-
-            {/* Desktop Navigation Links */}
-            <div className="hidden md:flex items-center space-x-6">
-              <a href="#expertise" className="text-gray-600 hover:text-green-700 px-3 py-2 text-sm font-medium">
-                Our Expertise
-              </a>
-              <a href="#pricing" className="text-gray-600 hover:text-green-700 px-3 py-2 text-sm font-medium">
-                Pricing
-              </a>
-              <a href="#demo" className="text-gray-600 hover:text-green-700 px-3 py-2 text-sm font-medium">
-                Demo
-              </a>
-              <a href="#contact" className="text-gray-600 hover:text-green-700 px-3 py-2 text-sm font-medium">
-                Contact
-              </a>
-              <a href="#faqs" className="text-gray-600 hover:text-green-700 px-3 py-2 text-sm font-medium">
-                FAQs
-              </a>
-            </div>
-
-            {/* Desktop Auth Buttons */}
-            <div className="hidden md:flex items-center space-x-4">
-              <Link href="/auth/login">
-                <Button
-                  variant="outline"
-                  className="border-green-700 text-green-700 hover:bg-primary hover:text-white text-sm"
-                >
-                  Sign In
-                </Button>
-              </Link>
-              <Link href="/auth/register">
-                <Button className="bg-green-800 hover:bg-green-900 text-white text-sm">
-                  Get Started
-                </Button>
-              </Link>
-            </div>
-
-            {/* Mobile menu button */}
-            <div className="md:hidden flex items-center">
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-green-700 focus:outline-none"
-              >
-                {isOpen ? (
-                  <X className="h-6 w-6" />
-                ) : (
-                  <Menu className="h-6 w-6" />
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {isOpen && (
-          <div className="md:hidden bg-white pb-3 px-4 z-50 absolute top-16 left-0 w-full shadow-lg">
-            <div className="flex flex-col space-y-2 pt-2">
-              {/* Links */}
-              {['features', 'pricing', 'demo', 'contact'].map(section => (
-                <a
-                  key={section}
-                  href={`#${section}`}
-                  className="text-gray-600 hover:text-green-700 px-3 py-2 rounded-md text-base font-medium"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {section.charAt(0).toUpperCase() + section.slice(1)}
-                </a>
-              ))}
-
-              {/* Auth Buttons */}
-              <div className="pt-2 border-t border-gray-200">
-                <Link href="/auth/login">
-                  <Button
-                    variant="outline"
-                    className="w-full border-green-700 text-green-700 hover:bg-green-700 hover:text-white mb-2"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Sign In
-                  </Button>
-                </Link>
-
-                <Link href="/auth/login">
-                  <Button
-                    className="w-full bg-green-700 hover:bg-green-800 text-white"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    Start Free Trial
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        )}
-
-      </nav>
-
+     
+<div><UserNavbar/></div>
 
       <section className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
         <div id="logo">

@@ -306,9 +306,9 @@ ${faqItems.slice(0, 3).map(item => `• ${item.question}`).join('\n')}`, 'bot');
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="bg-white rounded-lg shadow-2xl w-80 h-96 flex flex-col border border-gray-200">
+        <div className="bg-white rounded-lg shadow-2xl w-[400px] h-[600px] flex flex-col border border-gray-200">
           {/* Header */}
-          <div className="bg-gradient-to-r from-blue-600 to-purple-700 text-white p-4 rounded-t-lg flex items-center justify-between">
+          <div className="bg-gradient-to-r from-green-700 to-primary text-white p-4 rounded-t-lg flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
                 <Building className="w-4 h-4" />
@@ -400,9 +400,9 @@ ${faqItems.slice(0, 3).map(item => `• ${item.question}`).join('\n')}`, 'bot');
               <button
                 onClick={handleSendMessage}
                 disabled={!inputText.trim() || isWaitingForResponse}
-                className="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white rounded-lg p-2 transition-colors disabled:cursor-not-allowed"
+                className="bg-primary  hover:bg-green-700 disabled:bg-gray-400 text-white rounded-lg p-2 transition-colors disabled:cursor-not-allowed"
               >
-                <Send className="w-4 h-4" />
+                <Send className="w-4 h-4 font-black text-black" />
               </button>
             </div>
             <div className="text-xs text-gray-500 mt-1 text-center">

@@ -68,8 +68,8 @@
 //     return <p>Push notifications are not supported in this browser.</p>
 //   }
  
-  return (
-    <div>
+//   return (
+//     <div>
       
 //     </div>
 //   )
@@ -105,11 +105,11 @@
 //   return (
 //     <div>
       
-    </div>
-  )
-}
-  const role = useCurrentRole() as "USER" | "TRAVEL_AGENT" | "HOTEL_ADMIN" | "SALE_PERSON" | "SUPER_ADMIN" | undefined;
-  console.log("role",role);
+//     </div>
+//   )
+// }
+//   const role = useCurrentRole() as "USER" | "TRAVEL_AGENT" | "HOTEL_ADMIN" | "SALE_PERSON" | "SUPER_ADMIN"| "CONSULTANT" | undefined;
+//   console.log("role",role);
   
 //   const router = useRouter();
 //   const [isClient, setIsClient] = useState(false);
@@ -127,20 +127,20 @@
 //         return;
 //       }
 
-      setIsRedirecting(true);
-      switch (role) {
-        case "USER":
-          router.push("/dashboard/user");
-          break;
-          case "SUPER_ADMIN":
-            router.push("/dashboard/superadmin");
-            break;
-        case "TRAVEL_AGENT":
-          router.push("/dashboard/home");
-        default:
-          setIsRedirecting(false);
-          break;
-      }
+      // setIsRedirecting(true);
+      // switch (role) {
+      //   case "USER":
+      //     router.push("/dashboard/user");
+      //     break;
+      //     case "SUPER_ADMIN":
+      //       router.push("/dashboard/superadmin");
+      //       break;
+      //   case "CONSULTANT":
+      //     router.push("/dashboard/consultant");
+      //   default:
+      //     setIsRedirecting(false);
+      //     break;
+      // }
       
 //     };
 //     handleRouting();
