@@ -305,3 +305,25 @@ export const AvailableSlotTable = pgTable(
     startTimeIdx: index("available_slots_start_time_idx").on(table.startTime),
   })
 );
+
+export const chatbotInquiries = pgTable(
+  "chatbot_inquiries",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    name: varchar("name", { length: 255 }).notNull(),
+    email: varchar("email", { length: 255 }).notNull(),
+    phone: varchar("phone", { length: 15 }),
+    company: varchar("company", { length: 255 }),
+    status: varchar("status", { length: 50 }).default("new_inquiry"),
+    source: varchar("source", { length: 50 }).default("chatbot"),
+    message: text("message"),
+    userData: jsonb("user_data"),
+    createdAt: timestamp("created_at").defaultNow(),
+    updatedAt: timestamp("updated_at").defaultNow(),
+  },
+  (table) => ({
+    statusIdx: index("inquiries_status_idx").on(table.status),
+    emailIdx: index("inquiries_email_idx").on(table.email),
+    createdAtIdx: index("inquiries_created_at_idx").on(table.createdAt),
+  })
+);

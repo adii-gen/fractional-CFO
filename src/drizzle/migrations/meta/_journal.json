@@ -36,6 +36,13 @@
       "when": 1762493131529,
       "tag": "0004_skinny_absorbing_man",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1762579350664,
+      "tag": "0005_lush_sasquatch",
+      "breakpoints": true
     }
   ]
 }
