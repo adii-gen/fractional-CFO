@@ -11,7 +11,7 @@ import Footer from "./Homepage/footer";
 import SegmentsAndPricing from "./Homepage/pricingAndSegmentation";
 import FAQSection from "./Homepage/FAQ";
 import TrustedSection from "./Homepage/FinancialTools";
-import TourismChatbot from "./Homepage/chatbot";
+import ConsultingChatbot from "./Homepage/chatbot";
 import ConsultationBookingModal from "./ConsultationBooking";
 
 export default function FractionalCFOPage() {
@@ -22,18 +22,18 @@ export default function FractionalCFOPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             {/* Logo */}
-<div className="py-4">
-  <Link href="/">
-    <div className="flex items-center space-x-1 cursor-pointer">
-      <span className="tracking-widest text-lg md:text-lg font-medium text-gray-700">
-        FRACTIONAL
-      </span>
-      <div className="bg-[#CFE4D1] rounded-md px-2 py-1 flex items-center justify-center">
-        <span className="text-gray-700 text-lg md:text-lg font-semibold">CXO</span>
-      </div>
-    </div>
-  </Link>
-</div>
+            <div className="py-4">
+              <Link href="/">
+                <div className="flex items-center space-x-1 cursor-pointer">
+                  <span className="tracking-widest text-lg md:text-lg font-medium text-gray-700">
+                    FRACTIONAL
+                  </span>
+                  <div className="bg-[#CFE4D1] rounded-md px-2 py-1 flex items-center justify-center">
+                    <span className="text-gray-700 text-lg md:text-lg font-semibold">CXO</span>
+                  </div>
+                </div>
+              </Link>
+            </div>
 
             {/* Desktop Navigation Links */}
             <div className="hidden md:flex items-center space-x-6">
@@ -169,37 +169,37 @@ export default function FractionalCFOPage() {
       </section>
 
       {/* Services Section */}
-      <div id= "expertise" >
-      <section className="py-8 bg-gray-50">
-        
+      <div id="expertise" >
+        <section className="py-8 bg-gray-50">
 
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h2 className="text-4xl font-semibold mb-4 text-gray-900">Our Expertise</h2>
-          <p className="text-gray-600 mb-12 max-w-7xl mx-auto">
-            Get the financial clarity and control you need to scale your business — all without hiring a full-time CFO.
-          </p>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-10">
-            {[
-              { icon: <DollarSign className="h-10 w-10 text-emerald-600" />, title: "Financial Strategy", desc: "We design forward-looking strategies that align finances with your business goals." },
-              { icon: <BarChart3 className="h-10 w-10 text-emerald-600" />, title: "Budgeting & Forecasting", desc: "Plan ahead with detailed cash flow projections and performance insights." },
-              { icon: <LineChart className="h-10 w-10 text-emerald-600" />, title: "KPI & Growth Metrics", desc: "Track what truly matters and drive accountability through smart financial metrics." },
-              { icon: <Briefcase className="h-10 w-10 text-emerald-600" />, title: "Investor Reporting", desc: "We create polished reports and financial decks that impress investors." },
-              { icon: <ComputerIcon className="h-10 w-10 text-emerald-600" />, title: "IT Solutions", desc: "Standard tools and applications with a facility to customise as per business requirement." },
-            ].map((s, i) => (
-              <div
-                key={i}
-                className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all"
-              >
-                <div className="flex justify-center mb-4">{s.icon}</div>
-                <h3 className="text-xl font-semibold mb-2">{s.title}</h3>
-                <p className="text-gray-600 text-sm">{s.desc}</p>
-              </div>
-            ))}
+          <div className="max-w-7xl mx-auto px-6 text-center">
+            <h2 className="text-4xl font-semibold mb-4 text-gray-900">Our Expertise</h2>
+            <p className="text-gray-600 mb-12 max-w-7xl mx-auto">
+              Get the financial clarity and control you need to scale your business — all without hiring a full-time CFO.
+            </p>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-10">
+              {[
+                { icon: <DollarSign className="h-10 w-10 text-emerald-600" />, title: "Financial Strategy", desc: "We design forward-looking strategies that align finances with your business goals." },
+                { icon: <BarChart3 className="h-10 w-10 text-emerald-600" />, title: "Budgeting & Forecasting", desc: "Plan ahead with detailed cash flow projections and performance insights." },
+                { icon: <LineChart className="h-10 w-10 text-emerald-600" />, title: "KPI & Growth Metrics", desc: "Track what truly matters and drive accountability through smart financial metrics." },
+                { icon: <Briefcase className="h-10 w-10 text-emerald-600" />, title: "Investor Reporting", desc: "We create polished reports and financial decks that impress investors." },
+                { icon: <ComputerIcon className="h-10 w-10 text-emerald-600" />, title: "IT Solutions", desc: "Standard tools and applications with a facility to customise as per business requirement." },
+              ].map((s, i) => (
+                <div
+                  key={i}
+                  className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-1 transition-all"
+                >
+                  <div className="flex justify-center mb-4">{s.icon}</div>
+                  <h3 className="text-xl font-semibold mb-2">{s.title}</h3>
+                  <p className="text-gray-600 text-sm">{s.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
 
-      </section>
+        </section>
       </div>
       {/* About Section */}
       <section className="py-6 bg-white border-t border-gray-100">
@@ -216,7 +216,7 @@ export default function FractionalCFOPage() {
 
       <div id="pricing"><SegmentsAndPricing /></div>
       <TrustedSection />
-      <TourismChatbot />
+      <ConsultingChatbot />
       <CTASection />
       <div id="faqs"><FAQSection /></div>
 
