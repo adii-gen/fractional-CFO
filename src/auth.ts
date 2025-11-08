@@ -8,7 +8,7 @@ import { Role } from "./schemas";
 
 export type ExtendedUser = DefaultSession["user"] & {
   role: Role;
-  phone:{}
+  phone : string;
 };
 
 declare module "next-auth" {
@@ -17,7 +17,6 @@ declare module "next-auth" {
    */
   interface Session {
     user: ExtendedUser;
-    phone:string;
   }
 }
 
@@ -25,6 +24,7 @@ declare module "next-auth/jwt" {
   /** Returned by the `jwt` callback and `auth`, when using JWT sessions */
   interface JWT {
     role?: Role;
+    phone : string | null;
   }
 }
 
@@ -55,7 +55,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       }
 
       token.role = existingUser.role;
-token.phone=existingUser.phone;
+      token.phone=existingUser.phone;
       return token;
     },
     async session({ session, token }) {
