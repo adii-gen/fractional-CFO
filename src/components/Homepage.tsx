@@ -12,6 +12,7 @@ import SegmentsAndPricing from "./Homepage/pricingAndSegmentation";
 import FAQSection from "./Homepage/FAQ";
 import TrustedSection from "./Homepage/FinancialTools";
 import TourismChatbot from "./Homepage/chatbot";
+import ConsultationBookingModal from "./ConsultationBooking";
 
 export default function FractionalCFOPage() {
   const [isOpen, setIsOpen] = useState(false);

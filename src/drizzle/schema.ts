@@ -25,6 +25,20 @@ export const UserRole = pgEnum("user_role", [
   "USER",
   "ADMIN",
 ]);
+export const BookingStatus = pgEnum("booking_status", [
+  "PENDING",
+  "CONFIRMED",
+  "COMPLETED",
+  "CANCELLED",
+  "RESCHEDULED",
+]);
+
+export const ConsultationType = pgEnum("consultation_type", [
+  "DISCOVERY_CALL",
+  "STRATEGY_SESSION",
+  "FOLLOW_UP",
+  "EMERGENCY",
+]);
 
 
 // =====================
@@ -216,5 +230,78 @@ export const FAQTable = pgTable(
   (table) => ({
     orderIdx: index("faqs_order_idx").on(table.order),
     categoryIdx: index("faqs_category_idx").on(table.category),
+  })
+);
+
+export const ConsultationBookingTable = pgTable(
+  "consultation_bookings",
+  {
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
+    userId: uuid("user_id").references(() => UserTable.id, { onDelete: "cascade" }),
+    adminId: uuid("admin_id").references(() => UserTable.id, { onDelete: "set null" }),
+    
+    // Booking Details
+    type: ConsultationType("type").default("DISCOVERY_CALL").notNull(),
+    status: BookingStatus("status").default("PENDING").notNull(),
+    title: varchar("title", { length: 255 }).notNull(),
+    description: text("description"),
+    
+    // Timing
+    startTime: timestamp("start_time", { mode: "date" }).notNull(),
+    endTime: timestamp("end_time", { mode: "date" }).notNull(),
+    timezone: varchar("timezone", { length: 50 }).default("UTC").notNull(),
+    
+    // Contact Information
+    userEmail: varchar("user_email", { length: 255 }).notNull(),
+    userName: varchar("user_name", { length: 255 }).notNull(),
+    userPhone: varchar("user_phone", { length: 20 }),
+    
+    // Meeting Details
+    meetingLink: text("meeting_link"),
+    meetingPlatform: varchar("meeting_platform", { length: 100 }), // 'GOOGLE_MEET', 'ZOOM', 'MS_TEAMS'
+    meetingNotes: text("meeting_notes"),
+    
+    // Admin Notes
+    adminNotes: text("admin_notes"),
+    
+    // Timestamps
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (table) => ({
+    userIdIdx: index("consultation_bookings_user_id_idx").on(table.userId),
+    adminIdIdx: index("consultation_bookings_admin_id_idx").on(table.adminId),
+    startTimeIdx: index("consultation_bookings_start_time_idx").on(table.startTime),
+    statusIdx: index("consultation_bookings_status_idx").on(table.status),
+  })
+);
+export const AvailableSlotTable = pgTable(
+  "available_slots",
+  {
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
+    adminId: uuid("admin_id").references(() => UserTable.id, { onDelete: "cascade" }).notNull(),
+    
+    // Slot Details
+    startTime: timestamp("start_time", { mode: "date" }).notNull(),
+    endTime: timestamp("end_time", { mode: "date" }).notNull(),
+    date: date("date").notNull(),
+    
+    // Slot Configuration
+    slotDuration: integer("slot_duration").default(30).notNull(), // in minutes
+    maxBookings: integer("max_bookings").default(1).notNull(),
+    consultationType: ConsultationType("consultation_type").default("DISCOVERY_CALL").notNull(),
+    
+    // Availability
+    isAvailable: boolean("is_available").default(true),
+    isRecurring: boolean("is_recurring").default(false),
+    recurringPattern: varchar("recurring_pattern", { length: 50 }), // 'DAILY', 'WEEKLY', 'MONTHLY'
+    
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (table) => ({
+    adminIdIdx: index("available_slots_admin_id_idx").on(table.adminId),
+    dateIdx: index("available_slots_date_idx").on(table.date),
+    startTimeIdx: index("available_slots_start_time_idx").on(table.startTime),
   })
 );

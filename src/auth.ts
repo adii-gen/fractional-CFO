@@ -8,6 +8,7 @@ import { Role } from "./schemas";
 
 export type ExtendedUser = DefaultSession["user"] & {
   role: Role;
+  phone:{}
 };
 
 declare module "next-auth" {
@@ -16,6 +17,7 @@ declare module "next-auth" {
    */
   interface Session {
     user: ExtendedUser;
+    phone:string;
   }
 }
 
@@ -53,7 +55,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       }
 
       token.role = existingUser.role;
-
+token.phone=existingUser.phone;
       return token;
     },
     async session({ session, token }) {
@@ -63,6 +65,10 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
       if (token.role && session.user) {
         session.user.role = token.role;
+      }
+
+      if (token.phone && session.user) {
+        session.user.phone = token.phone;
       }
 
       return session;
