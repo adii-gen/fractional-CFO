@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { eq, and, gte, lte } from 'drizzle-orm';
-import { ConsultationBookingTable } from '@/drizzle/schema';
+import { ConsultationBookingTable, UserTable } from '@/drizzle/schema';
 
 // GET /api/bookings - Get user's bookings
 export async function GET(request: NextRequest) {
@@ -45,33 +45,61 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const {
+      consultantId,
       type,
       title,
       description,
+      date,
       startTime,
       endTime,
       timezone = 'UTC',
       userEmail,
       userName,
       userPhone,
+      userId,
     } = body;
 
     // Validate required fields
-    if (!type || !title || !startTime || !endTime || !userEmail) {
+    if (!consultantId || !date || !startTime || !endTime || !userEmail) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
       );
     }
 
-    // Check if slot is available
+    // Get consultant's price
+    const [consultant] = await db
+      .select()
+      .from(UserTable)
+      .where(eq(UserTable.id, consultantId));
+
+    if (!consultant) {
+      return NextResponse.json({ error: 'Consultant not found' }, { status: 404 });
+    }
+
+    // Parse times and calculate duration
+    const [startHour, startMin] = startTime.split(':').map(Number);
+    const [endHour, endMin] = endTime.split(':').map(Number);
+
+    const startDateTime = new Date(date);
+    startDateTime.setHours(startHour, startMin, 0, 0);
+
+    const endDateTime = new Date(date);
+    endDateTime.setHours(endHour, endMin, 0, 0);
+
+    const durationMinutes = (endDateTime.getTime() - startDateTime.getTime()) / (1000 * 60);
+    const pricePerMinute = consultant.pricePerMinute ? parseFloat(consultant.pricePerMinute as any) : 0;
+    const totalPrice = durationMinutes * pricePerMinute;
+
+    // Check if slot is still available
     const conflictingBookings = await db
       .select()
       .from(ConsultationBookingTable)
       .where(
         and(
-          gte(ConsultationBookingTable.startTime, new Date(startTime)),
-          lte(ConsultationBookingTable.endTime, new Date(endTime)),
+          eq(ConsultationBookingTable.consultantId, consultantId),
+          gte(ConsultationBookingTable.startTime, startDateTime),
+          lte(ConsultationBookingTable.startTime, endDateTime),
           eq(ConsultationBookingTable.status, 'CONFIRMED')
         )
       );
@@ -87,23 +115,26 @@ export async function POST(request: NextRequest) {
     const [booking] = await db
       .insert(ConsultationBookingTable)
       .values({
-        type,
-        title,
-        description,
-        startTime: new Date(startTime),
-        endTime: new Date(endTime),
+        userId: userId || null,
+        consultantId,
+        type: type || 'DISCOVERY_CALL',
+        title: title || 'Consultation',
+        description: description || '',
+        startTime: startDateTime,
+        endTime: endDateTime,
         timezone,
+        durationMinutes,
+        pricePerMinute: pricePerMinute.toString(),
+        totalPrice: totalPrice.toString(),
+        currency: 'AED',
         userEmail,
         userName: userName || userEmail,
         userPhone,
-        status: 'PENDING',
+        status: 'CONFIRMED',
       })
       .returning();
 
-    // TODO: Send confirmation email
-    // TODO: Send notification to admin
-
-    return NextResponse.json({ booking }, { status: 201 });
+    return NextResponse.json({ booking, message: 'Booking created successfully' }, { status: 201 });
   } catch (error) {
     console.error('Error creating booking:', error);
     return NextResponse.json(

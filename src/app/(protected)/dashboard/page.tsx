@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 export default function Dashboard() {
   const router = useRouter();
-  const role = useCurrentRole() as "USER" |"platform_admin"|  undefined;
+  const role = useCurrentRole() as "USER" |"platform_admin"|  "CONSULTANT";
   const user = useCurrentUser();
   const [isRedirecting, setIsRedirecting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
