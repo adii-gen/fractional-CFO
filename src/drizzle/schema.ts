@@ -14,8 +14,8 @@ import {
   uuid,
   varchar,
   serial,
+  time,
 } from "drizzle-orm/pg-core";
-
 
 // =====================
 // Enums
@@ -24,7 +24,9 @@ import {
 export const UserRole = pgEnum("user_role", [
   "USER",
   "ADMIN",
+  "CONSULTANT"
 ]);
+
 export const BookingStatus = pgEnum("booking_status", [
   "PENDING",
   "CONFIRMED",
@@ -40,6 +42,15 @@ export const ConsultationType = pgEnum("consultation_type", [
   "EMERGENCY",
 ]);
 
+export const DayOfWeek = pgEnum("day_of_week", [
+  "MONDAY",
+  "TUESDAY",
+  "WEDNESDAY",
+  "THURSDAY",
+  "FRIDAY",
+  "SATURDAY",
+  "SUNDAY",
+]);
 
 // =====================
 // Auth Tables (Core - Not Changed)
@@ -89,7 +100,7 @@ export const UserTable = pgTable(
     email: varchar("email", { length: 255 }).notNull(),
     emailVerified: timestamp("email_verified", { mode: "date" }),
     emailVerifToken: varchar("email_verif_token", { length: 255 }),
-    password: varchar("password", { length: 255 }), // Made nullable for OAuth users
+    password: varchar("password", { length: 255 }),
     mobile: text("mobile"),
     role: UserRole("role").default("USER").notNull(),
     profilePic: text("profile_pic"),
@@ -99,7 +110,7 @@ export const UserTable = pgTable(
     googleAccessToken: text("google_access_token"),
     googleRefreshToken: text("google_refresh_token"),
     
-    // Additional fields from new schema
+    // Additional fields
     phone: varchar('phone', { length: 15 }).unique(),
     userType: UserRole('user_type'),
     firstName: varchar('first_name', { length: 100 }),
@@ -111,6 +122,9 @@ export const UserTable = pgTable(
     lastLoginAt: timestamp('last_login_at'),
     twoFactorEnabled: boolean('two_factor_enabled').default(false),
     twoFactorSecret: varchar('two_factor_secret', { length: 32 }),
+    
+    // Consultant-specific pricing
+    pricePerMinute: decimal("price_per_minute", { precision: 10, scale: 2 }), // For consultants
     
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull(),
@@ -126,14 +140,13 @@ export const UserTable = pgTable(
 // Master Tables for Fractional CFO Website
 // =====================
 
-// Our Expertise Master Table
 export const ExpertiseTable = pgTable(
   "expertise",
   {
     id: uuid("id").defaultRandom().primaryKey().notNull(),
     header: varchar("header", { length: 255 }).notNull(),
     description: text("description").notNull(),
-    iconImage: text("icon_image"), // URL or path to icon image
+    iconImage: text("icon_image"),
     order: integer("order").notNull().default(0),
     isActive: boolean("is_active").default(true),
     createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -144,17 +157,16 @@ export const ExpertiseTable = pgTable(
   })
 );
 
-// Client Success Stories Master Table
 export const ClientSuccessStoryTable = pgTable(
   "client_success_stories",
   {
     id: uuid("id").defaultRandom().primaryKey().notNull(),
     testimonial: text("testimonial").notNull(),
     clientName: varchar("client_name", { length: 255 }).notNull(),
-    clientInitials: varchar("client_initials", { length: 10 }).notNull(), // e.g., "VM"
+    clientInitials: varchar("client_initials", { length: 10 }).notNull(),
     designation: varchar("designation", { length: 255 }).notNull(),
     companyName: varchar("company_name", { length: 255 }).notNull(),
-    rating: decimal("rating", { precision: 2, scale: 1 }).default("5.0"), // e.g., 4.9
+    rating: decimal("rating", { precision: 2, scale: 1 }).default("5.0"),
     order: integer("order").notNull().default(0),
     isActive: boolean("is_active").default(true),
     createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -165,29 +177,25 @@ export const ClientSuccessStoryTable = pgTable(
   })
 );
 
-// Pricing Plans Master Table
 export const PricingPlanTable = pgTable(
   "pricing_plans",
   {
     id: uuid("id").defaultRandom().primaryKey().notNull(),
-    planName: varchar("plan_name", { length: 255 }).notNull(), // e.g., "Corporates"
-    tagline: varchar("tagline", { length: 255 }), // e.g., "Sustain & Grow"
-    structure: varchar("structure", { length: 100 }), // e.g., "Complex"
-    headCount: varchar("head_count", { length: 100 }), // e.g., "Over 25"
-    transactions: varchar("transactions", { length: 100 }), // e.g., "Over 2000"
-    revenue: varchar("revenue", { length: 100 }), // e.g., "Over AED 5M"
-    budget: varchar("budget", { length: 100 }), // e.g., "Over AED 120K"
-    compliance: varchar("compliance", { length: 100 }), // e.g., "High"
+    planName: varchar("plan_name", { length: 255 }).notNull(),
+    tagline: varchar("tagline", { length: 255 }),
+    structure: varchar("structure", { length: 100 }),
+    headCount: varchar("head_count", { length: 100 }),
+    transactions: varchar("transactions", { length: 100 }),
+    revenue: varchar("revenue", { length: 100 }),
+    budget: varchar("budget", { length: 100 }),
+    compliance: varchar("compliance", { length: 100 }),
     
-    // Pricing details
     monthlyPrice: decimal("monthly_price", { precision: 12, scale: 2 }),
     annualPrice: decimal("annual_price", { precision: 12, scale: 2 }).notNull(),
     currency: varchar("currency", { length: 10 }).default("AED").notNull(),
-    discountPercentage: integer("discount_percentage").default(0), // e.g., 20 for "Save 20%"
+    discountPercentage: integer("discount_percentage").default(0),
     
-    // What's included - stored as JSON array
-    includedFeatures: jsonb("included_features").notNull(), 
-    // Example: ["Everything in SME", "Unlimited transactions", "Weekly financial reviews"]
+    includedFeatures: jsonb("included_features").notNull(),
     
     order: integer("order").notNull().default(0),
     isActive: boolean("is_active").default(true),
@@ -202,24 +210,13 @@ export const PricingPlanTable = pgTable(
   })
 );
 
-// FAQ Master Table
 export const FAQTable = pgTable(
   "faqs",
   {
     id: uuid("id").defaultRandom().primaryKey().notNull(),
-    category: varchar("category", { length: 100 }), // e.g., "general", "pricing", "services"
+    category: varchar("category", { length: 100 }),
     question: text("question").notNull(),
-    
-    // Each object: { type: "text" | "bullet" | "check" | "numbered", content: "answer text" }
     answers: jsonb("answers").notNull(),
-    /* Example structure:
-    [
-      { type: "text", content: "This is a text answer" },
-      { type: "bullet", content: "First bullet point" },
-      { type: "bullet", content: "Second bullet point" },
-      { type: "check", content: "Feature included" }
-    ]
-    */
     
     order: integer("order").notNull().default(0),
     isActive: boolean("is_active").default(true),
@@ -233,12 +230,90 @@ export const FAQTable = pgTable(
   })
 );
 
+// =====================
+// NEW: Weekly Availability Schedule (Recurring Pattern)
+// =====================
+
+export const ConsultantWeeklyScheduleTable = pgTable(
+  "consultant_weekly_schedule",
+  {
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
+    consultantId: uuid("consultant_id")
+      .references(() => UserTable.id, { onDelete: "cascade" })
+      .notNull(),
+    
+    // Day and Time
+    dayOfWeek: DayOfWeek("day_of_week").notNull(),
+    startTime: time("start_time").notNull(), // e.g., "10:00:00"
+    endTime: time("end_time").notNull(),     // e.g., "14:00:00"
+    
+    // Pricing (can override user's default)
+    pricePerMinute: decimal("price_per_minute", { precision: 10, scale: 2 }),
+    
+    // Configuration
+    consultationType: ConsultationType("consultation_type").default("DISCOVERY_CALL"),
+    isActive: boolean("is_active").default(true),
+    
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (table) => ({
+    consultantIdIdx: index("consultant_weekly_schedule_consultant_id_idx").on(table.consultantId),
+    dayOfWeekIdx: index("consultant_weekly_schedule_day_of_week_idx").on(table.dayOfWeek),
+    consultantDayIdx: index("consultant_weekly_schedule_consultant_day_idx").on(
+      table.consultantId,
+      table.dayOfWeek
+    ),
+  })
+);
+
+// =====================
+// NEW: Blocked Dates (Exceptions to Weekly Schedule)
+// =====================
+
+export const ConsultantBlockedDatesTable = pgTable(
+  "consultant_blocked_dates",
+  {
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
+    consultantId: uuid("consultant_id")
+      .references(() => UserTable.id, { onDelete: "cascade" })
+      .notNull(),
+    
+    // Block specific date or date+time range
+    blockedDate: date("blocked_date").notNull(),
+    startTime: time("start_time"), // Optional: block only specific hours
+    endTime: time("end_time"),     // Optional: block only specific hours
+    
+    // If startTime/endTime are null, entire day is blocked
+    isFullDayBlock: boolean("is_full_day_block").default(true),
+    
+    reason: text("reason"), // Optional reason for blocking
+    
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (table) => ({
+    consultantIdIdx: index("consultant_blocked_dates_consultant_id_idx").on(table.consultantId),
+    blockedDateIdx: index("consultant_blocked_dates_blocked_date_idx").on(table.blockedDate),
+    consultantDateIdx: index("consultant_blocked_dates_consultant_date_idx").on(
+      table.consultantId,
+      table.blockedDate
+    ),
+  })
+);
+
+// =====================
+// UPDATED: Consultation Bookings
+// =====================
+
 export const ConsultationBookingTable = pgTable(
   "consultation_bookings",
   {
     id: uuid("id").defaultRandom().primaryKey().notNull(),
     userId: uuid("user_id").references(() => UserTable.id, { onDelete: "cascade" }),
-    adminId: uuid("admin_id").references(() => UserTable.id, { onDelete: "set null" }),
+    consultantId: uuid("consultant_id")
+      .references(() => UserTable.id, { onDelete: "set null" })
+      .notNull(), // Changed from adminId to consultantId for clarity
     
     // Booking Details
     type: ConsultationType("type").default("DISCOVERY_CALL").notNull(),
@@ -250,6 +325,12 @@ export const ConsultationBookingTable = pgTable(
     startTime: timestamp("start_time", { mode: "date" }).notNull(),
     endTime: timestamp("end_time", { mode: "date" }).notNull(),
     timezone: varchar("timezone", { length: 50 }).default("UTC").notNull(),
+    durationMinutes: integer("duration_minutes").notNull(), // Calculated from start/end
+    
+    // Pricing
+    pricePerMinute: decimal("price_per_minute", { precision: 10, scale: 2 }).notNull(),
+    totalPrice: decimal("total_price", { precision: 10, scale: 2 }).notNull(),
+    currency: varchar("currency", { length: 10 }).default("AED").notNull(),
     
     // Contact Information
     userEmail: varchar("user_email", { length: 255 }).notNull(),
@@ -258,11 +339,11 @@ export const ConsultationBookingTable = pgTable(
     
     // Meeting Details
     meetingLink: text("meeting_link"),
-    meetingPlatform: varchar("meeting_platform", { length: 100 }), // 'GOOGLE_MEET', 'ZOOM', 'MS_TEAMS'
+    meetingPlatform: varchar("meeting_platform", { length: 100 }),
     meetingNotes: text("meeting_notes"),
     
-    // Admin Notes
-    adminNotes: text("admin_notes"),
+    // Admin/Consultant Notes
+    consultantNotes: text("consultant_notes"),
     
     // Timestamps
     createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -270,31 +351,37 @@ export const ConsultationBookingTable = pgTable(
   },
   (table) => ({
     userIdIdx: index("consultation_bookings_user_id_idx").on(table.userId),
-    adminIdIdx: index("consultation_bookings_admin_id_idx").on(table.adminId),
+    consultantIdIdx: index("consultation_bookings_consultant_id_idx").on(table.consultantId),
     startTimeIdx: index("consultation_bookings_start_time_idx").on(table.startTime),
     statusIdx: index("consultation_bookings_status_idx").on(table.status),
+    consultantStartIdx: index("consultation_bookings_consultant_start_idx").on(
+      table.consultantId,
+      table.startTime
+    ),
   })
 );
+
+// =====================
+// DEPRECATED: Available Slots (Keep for backward compatibility if needed)
+// =====================
+
 export const AvailableSlotTable = pgTable(
   "available_slots",
   {
     id: uuid("id").defaultRandom().primaryKey().notNull(),
     adminId: uuid("admin_id").references(() => UserTable.id, { onDelete: "cascade" }).notNull(),
     
-    // Slot Details
     startTime: timestamp("start_time", { mode: "date" }).notNull(),
     endTime: timestamp("end_time", { mode: "date" }).notNull(),
     date: date("date").notNull(),
     
-    // Slot Configuration
-    slotDuration: integer("slot_duration").default(30).notNull(), // in minutes
+    slotDuration: integer("slot_duration").default(30).notNull(),
     maxBookings: integer("max_bookings").default(1).notNull(),
     consultationType: ConsultationType("consultation_type").default("DISCOVERY_CALL").notNull(),
     
-    // Availability
     isAvailable: boolean("is_available").default(true),
     isRecurring: boolean("is_recurring").default(false),
-    recurringPattern: varchar("recurring_pattern", { length: 50 }), // 'DAILY', 'WEEKLY', 'MONTHLY'
+    recurringPattern: varchar("recurring_pattern", { length: 50 }),
     
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at").defaultNow().notNull(),

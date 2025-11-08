@@ -68,6 +68,11 @@ function PushNotificationManager() {
     return <p>Push notifications are not supported in this browser.</p>
   }
  
+  
+// UPDATE expertise 
+// SET icon_image = 'https://your-cdn.com/financial-strategy-icon.svg'
+// WHERE header = 'Financial Strategy';
+
   return (
     <div>
       
@@ -108,7 +113,7 @@ function PushNotificationManager() {
     </div>
   )
 }
-  const role = useCurrentRole() as "USER" | "TRAVEL_AGENT" | "HOTEL_ADMIN" | "SALE_PERSON" | "SUPER_ADMIN" | undefined;
+  const role = useCurrentRole() as "USER" | "TRAVEL_AGENT" | "HOTEL_ADMIN" | "SALE_PERSON" | "SUPER_ADMIN"| "CONSULTANT" | undefined;
   console.log("role",role);
   
   const router = useRouter();
@@ -135,8 +140,8 @@ function PushNotificationManager() {
           case "SUPER_ADMIN":
             router.push("/dashboard/superadmin");
             break;
-        case "TRAVEL_AGENT":
-          router.push("/dashboard/home");
+        case "CONSULTANT":
+          router.push("/dashboard/consultant");
         default:
           setIsRedirecting(false);
           break;

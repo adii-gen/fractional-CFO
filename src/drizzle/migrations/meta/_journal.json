@@ -43,6 +43,13 @@
       "when": 1762579350664,
       "tag": "0005_lush_sasquatch",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1762585431851,
+      "tag": "0006_nosy_wong",
+      "breakpoints": true
     }
   ]
 }
