@@ -414,3 +414,163 @@ export const chatbotInquiries = pgTable(
     createdAtIdx: index("inquiries_created_at_idx").on(table.createdAt),
   })
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//QUESTIONNAIRE TABLES
+// Add these to your existing schema.ts file
+
+// =====================
+// Questionnaire Enums
+// =====================
+
+export const QuestionnaireType = pgEnum("questionnaire_type", [
+  "BUSINESS_SETUP",
+  "CONSULTATION",
+  "ASSESSMENT",
+]);
+
+export const QuestionType = pgEnum("question_type", [
+  "YES_NO",
+  "SINGLE_CHOICE",
+  "MULTIPLE_CHOICE",
+  "TEXT_INPUT",
+  "NUMBER_INPUT",
+  "EMAIL_INPUT",
+  "PHONE_INPUT",
+]);
+
+// =====================
+// Questionnaire Tables
+// =====================
+
+export const QuestionTable = pgTable(
+  "questions",
+  {
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
+    questionnaireType: QuestionnaireType("questionnaire_type").default("BUSINESS_SETUP").notNull(),
+    questionText: text("question_text").notNull(),
+    questionType: QuestionType("question_type").notNull(),
+    placeholder: varchar("placeholder", { length: 255 }),
+    isRequired: boolean("is_required").default(true),
+    order: integer("order").notNull().default(0),
+    isRoot: boolean("is_root").default(false),
+    isActive: boolean("is_active").default(true),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (table) => ({
+    orderIdx: index("questions_order_idx").on(table.order),
+    typeIdx: index("questions_type_idx").on(table.questionnaireType),
+    isRootIdx: index("questions_is_root_idx").on(table.isRoot),
+  })
+);
+
+export const QuestionOptionTable = pgTable(
+  "question_options",
+  {
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
+    questionId: uuid("question_id")
+      .references(() => QuestionTable.id, { onDelete: "cascade" })
+      .notNull(),
+    optionText: text("option_text").notNull(),
+    optionValue: varchar("option_value", { length: 255 }).notNull(),
+    nextQuestionId: uuid("next_question_id").references(() => QuestionTable.id, { onDelete: "set null" }),
+    isTerminal: boolean("is_terminal").default(false),
+    resultMessage: text("result_message"),
+    order: integer("order").notNull().default(0),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (table) => ({
+    questionIdIdx: index("question_options_question_id_idx").on(table.questionId),
+    orderIdx: index("question_options_order_idx").on(table.order),
+  })
+);
+
+export const QuestionnaireSessionTable = pgTable(
+  "questionnaire_sessions",
+  {
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
+    userId: uuid("user_id").references(() => UserTable.id, { onDelete: "set null" }),
+    sessionToken: uuid("session_token").defaultRandom().notNull().unique(),
+    questionnaireType: QuestionnaireType("questionnaire_type").default("BUSINESS_SETUP").notNull(),
+    currentQuestionId: uuid("current_question_id").references(() => QuestionTable.id),
+    isCompleted: boolean("is_completed").default(false),
+    completedAt: timestamp("completed_at"),
+    userName: varchar("user_name", { length: 255 }),
+    userEmail: varchar("user_email", { length: 255 }),
+    userPhone: varchar("user_phone", { length: 20 }),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (table) => ({
+    userIdIdx: index("questionnaire_sessions_user_id_idx").on(table.userId),
+    sessionTokenIdx: uniqueIndex("questionnaire_sessions_session_token_idx").on(table.sessionToken),
+    typeIdx: index("questionnaire_sessions_type_idx").on(table.questionnaireType),
+  })
+);
+
+export const QuestionnaireResponseTable = pgTable(
+  "questionnaire_responses",
+  {
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
+    sessionId: uuid("session_id")
+      .references(() => QuestionnaireSessionTable.id, { onDelete: "cascade" })
+      .notNull(),
+    questionId: uuid("question_id")
+      .references(() => QuestionTable.id, { onDelete: "cascade" })
+      .notNull(),
+    selectedOptionId: uuid("selected_option_id").references(() => QuestionOptionTable.id),
+    textAnswer: text("text_answer"),
+    answeredAt: timestamp("answered_at").defaultNow().notNull(),
+  },
+  (table) => ({
+    sessionIdIdx: index("questionnaire_responses_session_id_idx").on(table.sessionId),
+    questionIdIdx: index("questionnaire_responses_question_id_idx").on(table.questionId),
+  })
+);
+
+export const QuestionnaireResultTable = pgTable(
+  "questionnaire_results",
+  {
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
+    sessionId: uuid("session_id")
+      .references(() => QuestionnaireSessionTable.id, { onDelete: "cascade" })
+      .notNull()
+      .unique(),
+    businessType: varchar("business_type", { length: 255 }),
+    country: varchar("country", { length: 100 }),
+    facilityType: varchar("facility_type", { length: 100 }),
+    budgetRange: varchar("budget_range", { length: 100 }),
+    expectedRevenue: varchar("expected_revenue", { length: 100 }),
+    recommendedPlanId: uuid("recommended_plan_id").references(() => PricingPlanTable.id),
+    recommendations: jsonb("recommendations"),
+    isReviewed: boolean("is_reviewed").default(false),
+    reviewedBy: uuid("reviewed_by").references(() => UserTable.id),
+    reviewedAt: timestamp("reviewed_at"),
+    adminNotes: text("admin_notes"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (table) => ({
+    sessionIdIdx: uniqueIndex("questionnaire_results_session_id_idx").on(table.sessionId),
+    isReviewedIdx: index("questionnaire_results_is_reviewed_idx").on(table.isReviewed),
+  })
+);

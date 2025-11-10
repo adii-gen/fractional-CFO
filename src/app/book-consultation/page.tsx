@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import ConsultantBooking from "@/components/ConsultationBooking";
 import { useCurrentUser } from "@/hooks/auth/useCurrentUser";
 import { Button } from '@/components/ui/button';
-import { Mail, Phone, User, CheckCircle } from 'lucide-react';
+import { Mail, Phone, User, CheckCircle, Shield } from 'lucide-react';
 
 export default function BookConsultationPage() {
   const user = useCurrentUser();
@@ -137,21 +137,77 @@ export default function BookConsultationPage() {
 
   // Show guest form
   return (
-    <div className="min-h-screen bg-gray-100 py-8 flex items-center justify-center">
-      <div className="max-w-md w-full mx-4">
+<div className="min-h-screen bg-gray-100 py-2 px-2 flex items-center justify-center">
+  <div className="max-w-6xl w-full rounded-2xl grid md:grid-cols-2 gap-12 p-10">
+    {/* left portion */}
+    <div className="lg:sticky lg:top-8">
+            <div className="mb-8">
+              <div className="inline-block px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold mb-6">
+                Book a Consultation
+              </div>
+              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+                Start Your Journey to Strategic Excellence
+              </h1>
+              <p className="text-lg text-gray-600 mb-8">
+                Get access to world-class CFO & CTO expertise at a fractional cost. Share your details and we'll connect you with the right strategic leader.
+              </p>
+            </div>
+
+            {/* Benefits */}
+            <div className="space-y-4 mb-8">
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mt-1">
+                  <CheckCircle className="w-4 h-4 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">Expert Strategic Guidance</h3>
+                  <p className="text-gray-600 text-sm">Connect with experienced CFOs and CTOs who understand your business needs</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mt-1">
+                  <CheckCircle className="w-4 h-4 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">Flexible Engagement</h3>
+                  <p className="text-gray-600 text-sm">No long-term commitments, pay only for what you need</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mt-1">
+                  <CheckCircle className="w-4 h-4 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">Quick Response Time</h3>
+                  <p className="text-gray-600 text-sm">We'll respond within 24 hours to schedule your consultation</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Trust Badge */}
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              <Shield className="w-5 h-5 text-emerald-600" />
+              <span>Your information is encrypted and secure</span>
+            </div>
+          </div>
+{/* right portio */}
         <div className="bg-white rounded-lg shadow-lg p-8">
+           
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <CheckCircle className="h-8 w-8 text-blue-600" />
-            </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
-              Book a Consultation
-            </h2>
-            <p className="text-gray-600">
-              Please provide your details to continue
-            </p>
-          </div>
+  <div className="flex items-center justify-center gap-2 mb-2">
+    <CheckCircle className="h-6 w-6 text-emerald-600" />
+    <h2 className="text-2xl font-bold text-gray-900">
+      Book your Consultation
+    </h2>
+  </div>
+
+  <p className="text-gray-600">
+    Please provide your details to continue
+  </p>
+</div>
 
           {/* Guest Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -268,3 +324,4 @@ export default function BookConsultationPage() {
     </div>
   );
 }
+

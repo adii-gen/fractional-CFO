@@ -159,7 +159,7 @@ const UserNavbar = () => {
 
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center space-x-6">
-            {["expertise", "pricing", "demo", "contact", "faqs"].map((section) => (
+            {["expertise", "pricing", "demo", "contact", "FAQs"].map((section) => (
               <a
                 key={section}
                 href={`#${section}`}

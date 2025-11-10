@@ -6,28 +6,19 @@ import { ConsultationBookingTable, UserTable } from '@/drizzle/schema';
 // GET /api/bookings - Get user's bookings
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
-    const userEmail = searchParams.get('userEmail');
-    const startDate = searchParams.get('startDate');
-    const endDate = searchParams.get('endDate');
+   
 
-    if (!userEmail) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    let conditions = [eq(ConsultationBookingTable.userEmail, userEmail)];
-
-    if (startDate && endDate) {
-      conditions.push(
-        gte(ConsultationBookingTable.startTime, new Date(startDate)),
-        lte(ConsultationBookingTable.endTime, new Date(endDate))
-      );
-    }
+    // if (startDate && endDate) {
+    //   conditions.push(
+    //     gte(ConsultationBookingTable.startTime, new Date(startDate)),
+    //     lte(ConsultationBookingTable.endTime, new Date(endDate))
+    //   );
+    // }
 
     const bookings = await db
       .select()
       .from(ConsultationBookingTable)
-      .where(and(...conditions))
+    
       .orderBy(ConsultationBookingTable.startTime);
 
     return NextResponse.json({ bookings });

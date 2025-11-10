@@ -62,7 +62,7 @@ export default function Testimonials() {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-br from-gray-50 to-emerald-50">
+    <section className="py-8 bg-gradient-to-br from-gray-50 to-emerald-50">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16">
@@ -122,7 +122,7 @@ export default function Testimonials() {
         </div>
 
         {/* Stats Section */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 bg-white rounded-2xl p-8 shadow-md">
+        {/* <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 bg-white rounded-2xl p-8 shadow-md">
           <div className="text-center">
             <div className="text-4xl font-bold text-emerald-700 mb-2">500+</div>
             <p className="text-gray-600">Happy Clients</p>
@@ -139,7 +139,7 @@ export default function Testimonials() {
             <div className="text-4xl font-bold text-emerald-700 mb-2">10+</div>
             <p className="text-gray-600">Years Experience</p>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

@@ -5,7 +5,7 @@ import { Rocket, Building2, Scale, Check, ArrowRight, Sparkles } from 'lucide-re
 import { Button } from '@/components/ui/button';
 
 export default function SegmentsAndPricing() {
-  const [activeSegment, setActiveSegment] = useState(0);
+  const [activeSegment, setActiveSegment] = useState(1);
   const [billingCycle, setBillingCycle] = useState('monthly');
   const [hoveredFeature, setHoveredFeature] = useState(null);
 

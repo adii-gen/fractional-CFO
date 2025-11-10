@@ -50,6 +50,13 @@
       "when": 1762585431851,
       "tag": "0006_nosy_wong",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1762750725799,
+      "tag": "0007_light_talos",
+      "breakpoints": true
     }
   ]
 }
