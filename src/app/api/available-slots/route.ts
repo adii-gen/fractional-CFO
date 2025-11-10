@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
       .from(AvailableSlotTable)
       .where(
         and(
-          eq(AvailableSlotTable.date, targetDate),
+          eq(AvailableSlotTable.date, targetDate as any),
           eq(AvailableSlotTable.isAvailable, true),
           consultationType 
             ? eq(AvailableSlotTable.consultationType, consultationType as any)
