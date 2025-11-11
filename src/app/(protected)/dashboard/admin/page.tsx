@@ -209,7 +209,9 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div><Sidebar /></div>
+    <div><Sidebar collapsed={false} setCollapsed={function (val: boolean): void {
+      throw new Error('Function not implemented.')
+    } } /></div>
   )
 }
 
