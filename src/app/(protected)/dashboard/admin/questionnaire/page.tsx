@@ -424,7 +424,7 @@ interface JourneyStep {
 export default function AdminQuestionnaireDashboard() {
   const [sessions, setSessions] = useState<Session[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState<"all" | "completed" | "in_progress">("all");
+  const [filter, setFilter] = useState<"all" | "completed" | "in_progress">("completed");
   const [selectedSession, setSelectedSession] = useState<Session | null>(null);
   const [journey, setJourney] = useState<JourneyStep[]>([]);
   const [showModal, setShowModal] = useState(false);
