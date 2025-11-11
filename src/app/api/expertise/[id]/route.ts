@@ -19,16 +19,21 @@ export async function DELETE(
         { status: 400 }
       );
     }
-
-    // Soft delete by setting isActive to false
-    const deleted = await db
-      .update(ExpertiseTable)
-      .set({
-        isActive: false,
-        updatedAt: new Date(),
-      })
+      const deleted = await db
+      .delete(ExpertiseTable)
       .where(eq(ExpertiseTable.id, id))
       .returning();
+
+
+    // Soft delete by setting isActive to false
+    // const deleted = await db
+    //   .update(ExpertiseTable)
+    //   .set({
+    //     isActive: false,
+    //     updatedAt: new Date(),
+    //   })
+    //   .where(eq(ExpertiseTable.id, id))
+    //   .returning();
 
     if (deleted.length === 0) {
       return NextResponse.json(
