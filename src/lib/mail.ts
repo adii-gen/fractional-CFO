@@ -768,6 +768,109 @@ export async function sendFreeToolsEmail(email: string, recipientName?: string) 
     console.error(`Error sending free tools email!`, error);
   }
 }
+
+// Add this function in your API file or import it
+export async function sendInquiryNotification(inquiry: any): Promise<void> {
+  try {
+    // Send email to user
+    await transporter.sendMail({
+      from: process.env.NODEMAILER_EMAIL_USER,
+      to: inquiry.email,
+      subject: "Thank You for Your Inquiry - Fractional CXO Consulting",
+      html: `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+            .content { padding: 30px; background: #f9f9f9; }
+            .footer { padding: 20px; text-align: center; font-size: 12px; color: #666; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>Thank You for Your Inquiry</h1>
+            </div>
+            <div class="content">
+              <p>Dear <strong>${inquiry.name}</strong>,</p>
+              <p>Thank you for reaching out to FRACTIONAL CXO Consulting Services. We have received your inquiry and our team will review it shortly.</p>
+              
+              <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h3>Your Inquiry Details:</h3>
+                <p><strong>Name:</strong> ${inquiry.name}</p>
+                <p><strong>Email:</strong> ${inquiry.email}</p>
+                ${inquiry.phone ? `<p><strong>Phone:</strong> ${inquiry.phone}</p>` : ''}
+                ${inquiry.company ? `<p><strong>Company:</strong> ${inquiry.company}</p>` : ''}
+                ${inquiry.message ? `<p><strong>Message:</strong> ${inquiry.message}</p>` : ''}
+              </div>
+              
+              <p>We will contact you within 24 hours to discuss your requirements and how we can assist you.</p>
+              <p>Best regards,<br>The FRACTIONAL CXO Team</p>
+            </div>
+            <div class="footer">
+              <p>FRACTIONAL CXO Consulting Services</p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `,
+    });
+
+    // Send notification to admin
+    await transporter.sendMail({
+      from: process.env.NODEMAILER_EMAIL_USER,
+      to: process.env.ADMIN_EMAIL || process.env.NODEMAILER_EMAIL_USER,
+      subject: "🚀 New Chatbot Inquiry Received",
+      html: `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .header { background: #dc3545; color: white; padding: 20px; text-align: center; }
+            .content { padding: 20px; background: #f9f9f9; }
+            .inquiry-details { background: white; padding: 15px; border-left: 4px solid #667eea; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h2>New Chatbot Inquiry</h2>
+            </div>
+            <div class="content">
+              <p>A new inquiry has been submitted through the chatbot:</p>
+              
+              <div class="inquiry-details">
+                <h3>Inquiry Details:</h3>
+                <p><strong>ID:</strong> ${inquiry.id}</p>
+                <p><strong>Name:</strong> ${inquiry.name}</p>
+                <p><strong>Email:</strong> ${inquiry.email}</p>
+                <p><strong>Phone:</strong> ${inquiry.phone || 'Not provided'}</p>
+                <p><strong>Company:</strong> ${inquiry.company || 'Not provided'}</p>
+                <p><strong>Message:</strong> ${inquiry.message || 'Not provided'}</p>
+                <p><strong>Submitted:</strong> ${new Date(inquiry.createdAt).toLocaleString()}</p>
+              </div>
+              
+              <p>Please follow up with the client within 24 hours.</p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `,
+    });
+
+    console.log("✅ Inquiry notification emails sent successfully");
+  } catch (error) {
+    console.error("❌ Error sending inquiry notification emails:", error);
+    // Don't throw - email failures shouldn't break the inquiry creation
+  }
+}
 export async function sendEmailAbsenceEmail(
   date: string,
   fromTime: string,

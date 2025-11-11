@@ -153,7 +153,7 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
   const menuItems = [
     { icon: Home, label: "Dashboard", href: "/dashboard/admin" },
     { icon: BarChart3, label: "Inquiries", href: "/dashboard/admin/inquiries" },
-    { icon: FileText, label: "Consultation Page", href: "/dashboard/consultant" },
+    { icon: FileText, label: "Consultation Page", href: "/dashboard/admin/consultant" },
     { icon: Calendar, label: "Questionnaire Results", href: "/dashboard/admin/questionnaire" },
     { icon: Calendar, label: "FAQs", href: "/dashboard/admin/faqs" },
     { icon: Calendar, label: "Expertise", href: "/dashboard/admin/experties" },

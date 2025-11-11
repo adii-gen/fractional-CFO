@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { eq, desc, sql } from 'drizzle-orm';
 import { chatbotInquiries } from '@/drizzle/schema';
+import { sendInquiryNotification } from '@/lib/mail';
 
 // Types
 interface InquiryBody {
@@ -262,6 +263,7 @@ export async function DELETE(request: NextRequest) {
 }
 
 // Admin notification helper
+// Admin notification helper
 async function notifyAdmin(inquiry: any): Promise<void> {
   try {
     console.log('🎯 New Chatbot Inquiry:', {
@@ -273,8 +275,12 @@ async function notifyAdmin(inquiry: any): Promise<void> {
       time: new Date().toLocaleString()
     });
 
-    // Add email/slack notifications here
-    // await sendEmailToAdmin(inquiry);
+    // Send email notifications (non-blocking)
+    sendInquiryNotification(inquiry).catch(err => 
+      console.error('Failed to send email notifications:', err)
+    );
+
+    // Add other notifications here (Slack, etc.)
     // await sendSlackNotification(inquiry);
 
   } catch (error) {
@@ -282,3 +288,4 @@ async function notifyAdmin(inquiry: any): Promise<void> {
     // Don't throw - notification failures shouldn't break the API
   }
 }
+
