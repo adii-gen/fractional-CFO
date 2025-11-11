@@ -273,9 +273,9 @@ const FAQSection = () => {
                 >
                   Load More FAQs
                 </button>
-                <p className="text-sm text-gray-500 mt-3">
+                {/* <p className="text-sm text-gray-500 mt-3">
                   Showing {displayedFaqs.length} of {filteredFaqsCount} FAQs
-                </p>
+                </p> */}
               </div>
             )}
           </>
