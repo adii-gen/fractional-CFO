@@ -47,7 +47,7 @@ const DashboardContent = () => {
     return (
         <div className="max-w-6xl mx-auto px-12 py-8">
             {/* Welcome Section */}
-            <UserNavbar />
+            {/* <UserNavbar /> */}
             <div className="mb-8">
                 <h1 className="text-3xl font-bold text-gray-900 mb-2">
                     Welcome back, {user?.name}!

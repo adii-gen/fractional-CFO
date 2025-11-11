@@ -15,6 +15,8 @@ import ConsultingChatbot from "./Homepage/chatbot";
 import ConsultationBookingModal from "./ConsultationBooking";
 import UserNavbar from "./Homepage/usernavbar";
 import ExpertiseSection from "./Homepage/ourExperties";
+import ServicesPage from "./Homepage/plansdata";
+import ServicesSection from "./Homepage/plansdata";
 
 export default function FractionalCFOPage() {
   return (
@@ -120,6 +122,7 @@ export default function FractionalCFOPage() {
 
 
       <div id="pricing"><SegmentsAndPricing /></div>
+      <ServicesSection />
       <TrustedSection />
       <ConsultingChatbot />
       <CTASection />

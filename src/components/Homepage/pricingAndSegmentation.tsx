@@ -549,7 +549,7 @@ export default function SegmentsAndPricing() {
   }
 
   return (
-    <section id="segments" className="py-20 bg-white">
+    <section id="segments" className="py-10 bg-white">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
@@ -583,7 +583,7 @@ export default function SegmentsAndPricing() {
         </div>
 
         {/* Main Content */}
-        <div className={`${currentSegment.bgColor} rounded-3xl p-8 border-2 ${currentSegment.borderColor} relative`}>
+        <div className={`${currentSegment.bgColor} rounded-3xl px-8 py-8 pb-2 border-2 ${currentSegment.borderColor} relative`}>
           {currentSegment.popular && (
             <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
               <div className={`bg-gradient-to-r ${currentSegment.color} text-white px-6 py-2 rounded-full text-sm font-semibold shadow-lg flex items-center gap-2`}>
@@ -709,7 +709,7 @@ export default function SegmentsAndPricing() {
         </div>
 
         {/* Bottom Info Cards */}
-        <div className="mt-12 grid md:grid-cols-3 gap-6">
+        {/* <div className="mt-12 grid md:grid-cols-3 gap-6">
           <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 text-center border border-gray-200">
             <div className="text-3xl font-bold text-emerald-700 mb-2">30 Days</div>
             <p className="text-gray-600 text-sm">Money-back guarantee</p>
@@ -722,7 +722,7 @@ export default function SegmentsAndPricing() {
             <div className="text-3xl font-bold text-emerald-700 mb-2">Free</div>
             <p className="text-gray-600 text-sm">Initial consultation</p>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
