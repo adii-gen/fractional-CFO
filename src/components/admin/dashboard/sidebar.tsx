@@ -156,7 +156,7 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
     { icon: FileText, label: "Consultation Page", href: "/dashboard/consultant" },
     { icon: Calendar, label: "Questionnaire Results", href: "/dashboard/admin/questionnaire" },
     { icon: Calendar, label: "FAQs", href: "/dashboard/admin/faqs" },
-    { icon: Calendar, label: "Expertise", href: "/dashboard/admin/questionnaire" },
+    { icon: Calendar, label: "Expertise", href: "/dashboard/admin/experties" },
     { icon: Calendar, label: "Pricings and Plan", href: "/dashboard/admin/pricing-plans" },
     { icon: Calendar, label: "Testimonials", href: "/dashboard/admin/testimonals" },
     { icon: Calendar, label: "Questionnaire Qs", href: "/dashboard/admin/questionnaire/questions" },
