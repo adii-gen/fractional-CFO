@@ -65,7 +65,7 @@ const DashboardContent = () => {
         description="Get personalized advice from our experts to help you achieve your goals."
         time="30 minutes"
         buttonText="Book Consultation"
-        buttonRoute="/book-consultation"
+        buttonRoute="/dashboard/user/book-consultation"
         imageSrc="/basic2.gif"
       />
          <QuizCard

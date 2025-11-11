@@ -8,20 +8,20 @@ import { Mail, Phone, User, CheckCircle, Shield } from 'lucide-react';
 
 export default function BookConsultationPage() {
   const user = useCurrentUser();
-  
+
   // Guest user form state
   const [guestInfo, setGuestInfo] = useState({
     name: '',
     email: '',
     phone: '',
   });
-  
+
   const [errors, setErrors] = useState({
     name: '',
     email: '',
     phone: '',
   });
-  
+
   const [isFormValid, setIsFormValid] = useState<boolean | "">(false);
   const [showBooking, setShowBooking] = useState(false);
 
@@ -64,9 +64,9 @@ export default function BookConsultationPage() {
   // Handle input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    
+
     setGuestInfo(prev => ({ ...prev, [name]: value }));
-    
+
     // Validate field
     const error = validateField(name, value);
     setErrors(prev => ({ ...prev, [name]: error }));
@@ -78,7 +78,7 @@ export default function BookConsultationPage() {
       phone: name === 'phone' ? error : errors.phone,
     };
 
-    const allFieldsFilled = 
+    const allFieldsFilled =
       (name === 'name' ? value : guestInfo.name) &&
       (name === 'email' ? value : guestInfo.email) &&
       (name === 'phone' ? value : guestInfo.phone);
@@ -137,77 +137,77 @@ export default function BookConsultationPage() {
 
   // Show guest form
   return (
-<div className="min-h-screen bg-gray-100 py-2 px-2 flex items-center justify-center">
-  <div className="max-w-6xl w-full rounded-2xl grid md:grid-cols-2 gap-12 p-10">
-    {/* left portion */}
-    <div className="lg:sticky lg:top-8">
-            <div className="mb-8">
-              <div className="inline-block px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold mb-6">
-                Book a Consultation
-              </div>
-              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-                Start Your Journey to Strategic Excellence
-              </h1>
-              <p className="text-lg text-gray-600 mb-8">
-                Get access to world-class CFO & CTO expertise at a fractional cost. Share your details and we'll connect you with the right strategic leader.
-              </p>
+    <div className="min-h-screen bg-gray-100 py-2 px-2 flex items-center justify-center">
+      <div className="max-w-6xl w-full rounded-2xl grid md:grid-cols-2 gap-12 p-10">
+        {/* left portion */}
+        <div className="lg:sticky lg:top-8">
+          <div className="mb-8">
+            <div className="inline-block px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-semibold mb-6">
+              Book a Consultation
             </div>
+            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+              Start Your Journey to Strategic Excellence
+            </h1>
+            <p className="text-lg text-gray-600 mb-8">
+              Get access to world-class CFO & CTO expertise at a fractional cost. Share your details and we'll connect you with the right strategic leader.
+            </p>
+          </div>
 
-            {/* Benefits */}
-            <div className="space-y-4 mb-8">
-              <div className="flex items-start gap-3">
-                <div className="flex-shrink-0 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mt-1">
-                  <CheckCircle className="w-4 h-4 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Expert Strategic Guidance</h3>
-                  <p className="text-gray-600 text-sm">Connect with experienced CFOs and CTOs who understand your business needs</p>
-                </div>
+          {/* Benefits */}
+          <div className="space-y-4 mb-8">
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mt-1">
+                <CheckCircle className="w-4 h-4 text-white" />
               </div>
-              
-              <div className="flex items-start gap-3">
-                <div className="flex-shrink-0 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mt-1">
-                  <CheckCircle className="w-4 h-4 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Flexible Engagement</h3>
-                  <p className="text-gray-600 text-sm">No long-term commitments, pay only for what you need</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-3">
-                <div className="flex-shrink-0 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mt-1">
-                  <CheckCircle className="w-4 h-4 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900 mb-1">Quick Response Time</h3>
-                  <p className="text-gray-600 text-sm">We'll respond within 24 hours to schedule your consultation</p>
-                </div>
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-1">Expert Strategic Guidance</h3>
+                <p className="text-gray-600 text-sm">Connect with experienced CFOs and CTOs who understand your business needs</p>
               </div>
             </div>
 
-            {/* Trust Badge */}
-            <div className="flex items-center gap-2 text-sm text-gray-500">
-              <Shield className="w-5 h-5 text-emerald-600" />
-              <span>Your information is encrypted and secure</span>
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mt-1">
+                <CheckCircle className="w-4 h-4 text-white" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-1">Flexible Engagement</h3>
+                <p className="text-gray-600 text-sm">No long-term commitments, pay only for what you need</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center mt-1">
+                <CheckCircle className="w-4 h-4 text-white" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-900 mb-1">Quick Response Time</h3>
+                <p className="text-gray-600 text-sm">We'll respond within 24 hours to schedule your consultation</p>
+              </div>
             </div>
           </div>
-{/* right portio */}
+
+          {/* Trust Badge */}
+          <div className="flex items-center gap-2 text-sm text-gray-500">
+            <Shield className="w-5 h-5 text-emerald-600" />
+            <span>Your information is encrypted and secure</span>
+          </div>
+        </div>
+        {/* right portio */}
         <div className="bg-white rounded-lg shadow-lg p-8">
-           
+
           {/* Header */}
           <div className="text-center mb-8">
-  <div className="flex items-center justify-center gap-2 mb-2">
-    <CheckCircle className="h-6 w-6 text-emerald-600" />
-    <h2 className="text-2xl font-bold text-gray-900">
-      Book your Consultation
-    </h2>
-  </div>
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <CheckCircle className="h-6 w-6 text-emerald-600" />
+              <h2 className="text-2xl font-bold text-gray-900">
+                Book your Consultation
+              </h2>
+            </div>
 
-  <p className="text-gray-600">
-    Please provide your details to continue
-  </p>
-</div>
+            <p className="text-gray-600">
+              Please provide your details to continue
+            </p>
+          </div>
 
           {/* Guest Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -227,9 +227,8 @@ export default function BookConsultationPage() {
                   value={guestInfo.name}
                   onChange={handleInputChange}
                   placeholder="John Doe"
-                  className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
-                    errors.name ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${errors.name ? 'border-red-500' : 'border-gray-300'
+                    }`}
                 />
               </div>
               {errors.name && (
@@ -253,9 +252,8 @@ export default function BookConsultationPage() {
                   value={guestInfo.email}
                   onChange={handleInputChange}
                   placeholder="john@example.com"
-                  className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
-                    errors.email ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${errors.email ? 'border-red-500' : 'border-gray-300'
+                    }`}
                 />
               </div>
               {errors.email && (
@@ -279,9 +277,8 @@ export default function BookConsultationPage() {
                   value={guestInfo.phone}
                   onChange={handleInputChange}
                   placeholder="+971 50 123 4567"
-                  className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
-                    errors.phone ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  className={`w-full pl-10 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${errors.phone ? 'border-red-500' : 'border-gray-300'
+                    }`}
                 />
               </div>
               {errors.phone && (
@@ -293,11 +290,10 @@ export default function BookConsultationPage() {
             <Button
               type="submit"
               disabled={!isFormValid}
-              className={`w-full py-3 rounded-lg font-semibold transition-all ${
-                isFormValid
+              className={`w-full py-3 rounded-lg font-semibold transition-all ${isFormValid
                   ? 'bg-blue-600 hover:bg-blue-700 text-white'
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              }`}
+                }`}
             >
               Continue to Booking
             </Button>
