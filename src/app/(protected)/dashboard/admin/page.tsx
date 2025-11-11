@@ -204,11 +204,12 @@
 //     </div>
 //   );
 // }
+import Sidebar from '@/components/admin/dashboard/sidebar'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>page</div>
+    <div><Sidebar /></div>
   )
 }
 
