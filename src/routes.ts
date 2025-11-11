@@ -9,7 +9,7 @@ export const apiAuthPrefix: string = "/api/auth";
 export const publicRoutes: string[] = ["/", "/auth/verify-email" ,"/Hotels/HotelDetails","/Hotels","/admin"];
 
 // APIs which are accessible to all.
-export const publicApis: string[] = ["/api/posts", "/api/company" ,"/posts", "/api/get", "/api/productCategory","/api/serviceCategory","/api/service" , "/api/deal-types","/api/uploadthing","/api/chatbot/inquiries","/api/bookings"];
+export const publicApis: string[] = ["/api/posts", "/api/company" ,"/posts", "/api/get", "/api/productCategory","/api/serviceCategory","/api/service" , "/api/deal-types","/api/uploadthing","/api/chatbot/inquiries","/api/bookings", "/api/expertise", "/api/faq"];
 
 // Routes which are used for authentication.
 export const authRoutes: string[] = [
