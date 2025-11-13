@@ -108,7 +108,7 @@ const Sidebar = () => {
     { icon: Home, label: "Dashboard", href: "/dashboard/user" },
     { icon: BarChart3, label: "Analytics", href: "/dashboard/analytics" },
     { icon: FileText, label: "Reports", href: "/dashboard/reports" },
-    { icon: Calendar, label: "Consultations", href: "/dashboard/consultations" },
+    { icon: Calendar, label: "Consultations", href: "/dashboard/user/consultations" },
     { icon: Settings, label: "Settings", href: "/dashboard/settings" },
     { icon: HelpCircle, label: "Help", href: "/dashboard/help" },
   ];

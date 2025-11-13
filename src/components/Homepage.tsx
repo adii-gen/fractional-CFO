@@ -17,6 +17,7 @@ import UserNavbar from "./Homepage/usernavbar";
 import ExpertiseSection from "./Homepage/ourExperties";
 import ServicesPage from "./Homepage/plansdata";
 import ServicesSection from "./Homepage/plansdata";
+import CombinedPricingServices from "./Homepage/pricingAndSegmentation";
 
 export default function FractionalCFOPage() {
   return (
@@ -121,8 +122,7 @@ export default function FractionalCFOPage() {
       
 
 
-      <div id="pricing"><SegmentsAndPricing /></div>
-      <ServicesSection />
+      <div id="pricing"><CombinedPricingServices /></div>
       <TrustedSection />
       <ConsultingChatbot />
       <CTASection />
