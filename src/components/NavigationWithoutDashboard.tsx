@@ -73,25 +73,25 @@ export default function NavBarWithoutDasboard() {
 
   useEffect(() => {
     const checkVendorProfile = async () => {
-      if (role === "USER") {
-        try {
-          const response = await fetch(`/api/users?id=${user?.id}`);
-          const data = await response.json();
+      // if (role === "USER") {
+      //   try {
+      //     const response = await fetch(`/api/users`);
+      //     const data = await response.json();
 
-          if (data && data.length > 0) {
-            const vendorData = data[0];
+      //     if (data && data.length > 0) {
+      //       const vendorData = data[0];
 
-            if (vendorData.vendorProfileId === null) {
-              setProfile(false);
-            } else if (vendorData.vendorProfileId) {
-              setProfile(true);
-            }
-          }
-        } catch (error) {
-          console.error("Error fetching vendor data:", error);
-          // Handle error case - redirect to a default route or show error message
-        }
-      }
+      //       if (vendorData.vendorProfileId === null) {
+      //         setProfile(false);
+      //       } else if (vendorData.vendorProfileId) {
+      //         setProfile(true);
+      //       }
+      //     }
+      //   } catch (error) {
+      //     console.error("Error fetching vendor data:", error);
+      //     // Handle error case - redirect to a default route or show error message
+      //   }
+      // }
     };
 
     checkVendorProfile();
