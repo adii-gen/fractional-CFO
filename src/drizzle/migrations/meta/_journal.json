@@ -5,57 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1749203473700,
-      "tag": "0000_unknown_toad_men",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1762407307924,
-      "tag": "0001_burly_bloodstorm",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1762407409810,
-      "tag": "0002_shallow_selene",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1762407526963,
-      "tag": "0003_clear_gargoyle",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1762493131529,
-      "tag": "0004_skinny_absorbing_man",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1762579350664,
-      "tag": "0005_lush_sasquatch",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1762585431851,
-      "tag": "0006_nosy_wong",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "7",
-      "when": 1762750725799,
-      "tag": "0007_light_talos",
+      "when": 1763027946283,
+      "tag": "0000_naive_mulholland_black",
       "breakpoints": true
     }
   ]

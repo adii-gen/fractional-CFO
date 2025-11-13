@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 export default function Dashboard() {
   const router = useRouter();
-  const role = useCurrentRole() as "USER" |"platform_admin"|  "CONSULTANT";
+  const role = useCurrentRole() as "USER" |"ADMIN"|  "CONSULTANT";
   const user = useCurrentUser();
   const [isRedirecting, setIsRedirecting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -62,7 +62,7 @@ export default function Dashboard() {
         // case "VENDOR":
         //   await checkVendorProfile();
         //   break;
-        case "platform_admin":
+        case "ADMIN":
           
           
             router.push("/dashboard/admin");

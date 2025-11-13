@@ -127,20 +127,20 @@
 //         return;
 //       }
 
-      // setIsRedirecting(true);
-      // switch (role) {
-      //   case "USER":
-      //     router.push("/dashboard/user");
-      //     break;
-      //     case "SUPER_ADMIN":
-      //       router.push("/dashboard/superadmin");
-      //       break;
-      //   case "CONSULTANT":
-      //     router.push("/dashboard/consultant");
-      //   default:
-      //     setIsRedirecting(false);
-      //     break;
-      // }
+//       setIsRedirecting(true);
+//       switch (role) {
+//         case "USER":
+//           router.push("/dashboard/user");
+//           break;
+//           case "SUPER_ADMIN":
+//             router.push("/dashboard/superadmin");
+//             break;
+//         case "CONSULTANT":
+//           router.push("/dashboard/consultant");
+//         default:
+//           setIsRedirecting(false);
+//           break;
+//       }
       
 //     };
 //     handleRouting();
