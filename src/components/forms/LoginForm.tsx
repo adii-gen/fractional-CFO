@@ -75,11 +75,21 @@ function LoginForm({ api }: any) {
         <Link href={"/"} className="hidden md:block">
           <div className="flex justify-center mb-6">
             <div className="flex items-center">
-              <div className="h-10 w-10 rounded-md flex items-center justify-center">
-                {/* <TicketIcon className="h-5 w-5 text-white" /> */}
-                <img src="/icons.png" alt="" className="h-10 w-10" />
+            
+              <div className="">
+            <Link href="/">
+              <div className="flex items-center space-x-1 cursor-pointer">
+                <span className="tracking-widest text-lg md:text-lg font-medium text-gray-700">
+                  FRACTIONAL
+                </span>
+                <div className="bg-[#CFE4D1] rounded-md px-2 py-1 flex items-center justify-center">
+                  <span className="text-gray-700 text-lg md:text-lg font-semibold">
+                    CXO
+                  </span>
+                </div>
               </div>
-              <span className="ml-2 text-2xl  font-bold text-primary">Fractional CFO</span>
+            </Link>
+          </div>
             </div>
           </div>
         </Link>

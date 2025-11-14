@@ -589,7 +589,7 @@ export default function AdminQuestionnaireDashboard() {
         </div>
 
         {/* Filters */}
-        <div className="bg-white rounded-lg shadow mb-6 p-4">
+        {/* <div className="bg-white rounded-lg shadow mb-6 p-4">
           <div className="flex gap-2">
             <button
               onClick={() => setFilter("all")}
@@ -622,7 +622,7 @@ export default function AdminQuestionnaireDashboard() {
               In Progress
             </button>
           </div>
-        </div>
+        </div> */}
 
         {/* Sessions Table */}
         <div className="bg-white rounded-lg shadow overflow-hidden">
