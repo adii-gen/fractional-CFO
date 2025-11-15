@@ -163,6 +163,8 @@ const Sidebar = ({ collapsed, setCollapsed }: SidebarProps) => {
     { icon: Calendar, label: "Pricings and Plan", href: "/dashboard/admin/pricing-plans" },
     { icon: Calendar, label: "Testimonials", href: "/dashboard/admin/testimonals" },
     { icon: Calendar, label: "Questionnaire Qs", href: "/dashboard/admin/questionnaire/questions" },
+        { icon: Calendar, label: "Create Consultants", href: "/dashboard/admin/roleChange" },
+
     { icon: Settings, label: "Settings", href: "/dashboard/settings" },
     { icon: HelpCircle, label: "Help", href: "/dashboard/help" },
   ];

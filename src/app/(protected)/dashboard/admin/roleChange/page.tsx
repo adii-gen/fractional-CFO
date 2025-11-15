@@ -2,6 +2,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 interface User {
   id: string;
@@ -26,43 +27,44 @@ export default function UserManagement() {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [updatingRole, setUpdatingRole] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
-const fetchUsers = async () => {
-  try {
-    console.log('Fetching users...');
-    const response = await fetch('/api/users');
-    console.log('Response status:', response.status);
-    
-    const data = await response.json();
-    console.log('Response data:', data);
-    
-    // Handle both array and object formats
-    let usersArray;
-    
-    if (Array.isArray(data)) {
-      usersArray = data; // Direct array
-    } else if (Array.isArray(data.data)) {
-      usersArray = data.data; // Wrapped in data property
-    } else if (data.success && Array.isArray(data.data)) {
-      usersArray = data.data; // Success wrapper
-    } else {
-      throw new Error('Unexpected API response format');
+  const fetchUsers = async () => {
+    try {
+      console.log('Fetching users...');
+      const response = await fetch('/api/users');
+      console.log('Response status:', response.status);
+
+      const data = await response.json();
+      console.log('Response data:', data);
+
+      // Handle both array and object formats
+      let usersArray;
+
+      if (Array.isArray(data)) {
+        usersArray = data; // Direct array
+      } else if (Array.isArray(data.data)) {
+        usersArray = data.data; // Wrapped in data property
+      } else if (data.success && Array.isArray(data.data)) {
+        usersArray = data.data; // Success wrapper
+      } else {
+        throw new Error('Unexpected API response format');
+      }
+
+      setUsers(usersArray);
+      console.log('Users set successfully:', usersArray);
+
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      setError('Error loading users: ' + (error as Error).message);
+    } finally {
+      setLoading(false);
     }
-    
-    setUsers(usersArray);
-    console.log('Users set successfully:', usersArray);
-    
-  } catch (error) {
-    console.error('Error fetching users:', error);
-    setError('Error loading users: ' + (error as Error).message);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   const updateUserRole = async (userId: string, newRole: string) => {
     setUpdatingRole(userId);
@@ -83,11 +85,16 @@ const fetchUsers = async () => {
               : user
           )
         );
-        
+
         if (selectedUser && selectedUser.id === userId) {
           setSelectedUser({ ...selectedUser, role: newRole });
         }
-        alert('Role updated successfully!');
+        Swal.fire({
+          title: 'Success!',
+          text: 'Role updated successfully!',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
       } else {
         alert('Failed to update role');
       }
@@ -108,6 +115,19 @@ const fetchUsers = async () => {
     setIsModalOpen(false);
     setSelectedUser(null);
   };
+  const filteredUsers = users.filter(user => {
+    const matchRole = roleFilter === "all" || user.role === roleFilter;
+
+    const query = search.toLowerCase();
+
+    const matchSearch =
+      user.name.toLowerCase().includes(query) ||
+      user.email.toLowerCase().includes(query) ||
+      (user.mobile && user.mobile.toLowerCase().includes(query)) ||
+      (user.phone && user.phone.toLowerCase().includes(query));
+
+    return matchRole && matchSearch;
+  });
 
   const getRoleColor = (role: string) => {
     switch (role) {
@@ -122,12 +142,7 @@ const fetchUsers = async () => {
     }
   };
 
-  const filteredUsers = roleFilter === 'all' 
-    ? users 
-    : users.filter(user => user.role === roleFilter);
 
-  console.log('Filtered users:', filteredUsers);
-  console.log('Total users:', users.length);
 
   if (loading) {
     return (
@@ -145,7 +160,7 @@ const fetchUsers = async () => {
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
           <p className="font-bold">Error</p>
           <p>{error}</p>
-          <button 
+          <button
             onClick={fetchUsers}
             className="mt-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
           >
@@ -158,23 +173,38 @@ const fetchUsers = async () => {
 
   return (
     <div className="p-8">
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h1 className="text-3xl font-bold">User Management</h1>
-          <p className="text-gray-600 mt-1">Total Users: {users.length}</p>
-        </div>
-        
-        <select 
-          value={roleFilter}
-          onChange={(e) => setRoleFilter(e.target.value)}
-          className="border rounded-lg px-4 py-2"
-        >
-          <option value="all">All Roles ({users.length})</option>
-          <option value="USER">User ({users.filter(u => u.role === 'USER').length})</option>
-          <option value="CONSULTANT">Consultant ({users.filter(u => u.role === 'CONSULTANT').length})</option>
-          <option value="ADMIN">Admin ({users.filter(u => u.role === 'ADMIN').length})</option>
-        </select>
-      </div>
+     <div className="flex justify-between items-center mb-6">
+
+  {/* LEFT SIDE → Search + Filter */}
+  
+
+  {/* RIGHT SIDE → Heading */}
+  <div className="text-left">
+    <h1 className="text-3xl font-bold">User Management</h1>
+    <p className="text-gray-600 mt-1">Total Users: {users.length}</p>
+  </div>
+<div className="flex items-center gap-4">
+    <input
+      type="text"
+      placeholder="Search by name, email, or phone..."
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      className="border rounded-lg px-4 py-2 w-72"
+    />
+
+    <select 
+      value={roleFilter}
+      onChange={(e) => setRoleFilter(e.target.value)}
+      className="border rounded-lg px-4 py-2"
+    >
+      <option value="all">All Roles ({users.length})</option>
+      <option value="USER">User ({users.filter(u => u.role === 'USER').length})</option>
+      <option value="CONSULTANT">Consultant ({users.filter(u => u.role === 'CONSULTANT').length})</option>
+      <option value="ADMIN">Admin ({users.filter(u => u.role === 'ADMIN').length})</option>
+    </select>
+  </div>
+</div>
+
 
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
         <table className="min-w-full divide-y divide-gray-200">
@@ -190,8 +220,8 @@ const fetchUsers = async () => {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {filteredUsers.map((user) => (
-              <tr 
-                key={user.id} 
+              <tr
+                key={user.id}
                 className="hover:bg-gray-50 cursor-pointer"
                 onClick={() => handleUserClick(user)}
               >
@@ -217,9 +247,8 @@ const fetchUsers = async () => {
                     value={user.role}
                     onChange={(e) => updateUserRole(user.id, e.target.value)}
                     disabled={updatingRole === user.id}
-                    className={`text-sm border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                      updatingRole === user.id ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
-                    }`}
+                    className={`text-sm border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 ${updatingRole === user.id ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+                      }`}
                   >
                     <option value="USER">User</option>
                     <option value="CONSULTANT">Consultant</option>
@@ -230,13 +259,13 @@ const fetchUsers = async () => {
             ))}
           </tbody>
         </table>
-        
+
         {filteredUsers.length === 0 && users.length > 0 && (
           <div className="text-center py-8 text-gray-500">
             No users found with role: {roleFilter}
           </div>
         )}
-        
+
         {users.length === 0 && (
           <div className="text-center py-8 text-gray-500">
             No users found in database
@@ -257,7 +286,7 @@ const fetchUsers = async () => {
                 &times;
               </button>
             </div>
-            
+
             <div className="p-6 space-y-4 overflow-y-auto max-h-[60vh]">
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -275,9 +304,8 @@ const fetchUsers = async () => {
                 <div>
                   <label className="text-sm font-medium text-gray-500">Email Verified</label>
                   <div className="mt-1">
-                    <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                      selectedUser.emailVerified ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                    }`}>
+                    <span className={`px-2 py-1 text-xs font-semibold rounded-full ${selectedUser.emailVerified ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                      }`}>
                       {selectedUser.emailVerified ? 'Yes' : 'No'}
                     </span>
                   </div>
@@ -289,9 +317,8 @@ const fetchUsers = async () => {
                       value={selectedUser.role}
                       onChange={(e) => updateUserRole(selectedUser.id, e.target.value)}
                       disabled={updatingRole === selectedUser.id}
-                      className={`w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                        updatingRole === selectedUser.id ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
-                      }`}
+                      className={`w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${updatingRole === selectedUser.id ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+                        }`}
                     >
                       <option value="USER">User</option>
                       <option value="CONSULTANT">Consultant</option>
@@ -302,9 +329,8 @@ const fetchUsers = async () => {
                 <div>
                   <label className="text-sm font-medium text-gray-500">Status</label>
                   <div className="mt-1">
-                    <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                      selectedUser.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                    }`}>
+                    <span className={`px-2 py-1 text-xs font-semibold rounded-full ${selectedUser.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                      }`}>
                       {selectedUser.isActive ? 'Active' : 'Inactive'}
                     </span>
                   </div>
@@ -322,7 +348,7 @@ const fetchUsers = async () => {
                   </div>
                 </div>
               </div>
-              
+
               {selectedUser.pricePerMinute !== null && selectedUser.pricePerMinute !== undefined && (
                 <div className="pt-4 border-t">
                   <label className="text-sm font-medium text-gray-500">Price Per Minute</label>
@@ -332,7 +358,7 @@ const fetchUsers = async () => {
                 </div>
               )}
             </div>
-            
+
             <div className="flex justify-end gap-3 p-6 border-t">
               <button
                 onClick={closeModal}
