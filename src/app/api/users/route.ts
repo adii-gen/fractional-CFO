@@ -1,5 +1,6 @@
 import { UserTable } from "@/drizzle/schema";
 import { db } from "@/lib/db";
+import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 const VALID_ROLES = ['USER', 'CONSULTANT', 'ADMIN'] as const;
 type UserRole = typeof VALID_ROLES[number];
@@ -25,9 +26,12 @@ export async function GET(req:NextRequest) {
 }
 export async function PUT(
   request: NextRequest,
+  { params }: { params: { id: string } }
+
 ) {
   try {
-    const { id } = ;
+    const { id } = params;
+
     
     console.log(`PUT request for user ID: ${id}`);
     
