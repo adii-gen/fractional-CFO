@@ -120,6 +120,7 @@ export const UserTable = pgTable(
     emailVerifiedAt: timestamp('email_verified_at'),
     phoneVerifiedAt: timestamp('phone_verified_at'),
     lastLoginAt: timestamp('last_login_at'),
+    
     twoFactorEnabled: boolean('two_factor_enabled').default(false),
     twoFactorSecret: varchar('two_factor_secret', { length: 32 }),
     

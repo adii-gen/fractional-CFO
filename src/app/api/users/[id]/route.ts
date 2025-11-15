@@ -1,6 +1,9 @@
-import { UserTable } from "@/drizzle/schema";
-import { db } from "@/lib/db";
-import { NextRequest, NextResponse } from "next/server";
+// app/api/UserTable/[id]/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { db } from '@/lib/db';
+import { eq } from 'drizzle-orm';
+import { UserTable } from '@/drizzle/schema';
+
 const VALID_ROLES = ['USER', 'CONSULTANT', 'ADMIN'] as const;
 type UserRole = typeof VALID_ROLES[number];
 
@@ -13,21 +16,13 @@ interface UpdateBody {
   mobile?: string;
 }
 
-export async function GET(req:NextRequest) {
-    try {
-        
-        const user = await db.select().from(UserTable)
-        return NextResponse.json(user)
-    } catch (error) {
-        return NextResponse.json(error)
-    }
-    
-}
+// PUT - Update user
 export async function PUT(
   request: NextRequest,
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = ;
+    const { id } = params;
     
     console.log(`PUT request for user ID: ${id}`);
     
@@ -95,7 +90,7 @@ export async function PUT(
     const [updatedUser] = await db
       .update(UserTable)
       .set(updateData)
-      .where(eq(UserTable.id, id as any))
+      .where(eq(UserTable.id, id))
       .returning();
 
     if (!updatedUser) {
@@ -134,3 +129,5 @@ export async function PUT(
     );
   }
 }
+
+// ... rest of your methods remain the same
